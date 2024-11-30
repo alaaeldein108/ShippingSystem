@@ -29,24 +29,15 @@ namespace Repositories.Repositories.Operation
              context.Set<ProductType>().Remove(input);
         }
 
-        public async Task<ProductType> FindProductTypeByCodeAsync(string code)
-        {
-           return await context.Set<ProductType>()
-                .Where(x=>x.Code==code)
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<ProductType> FindProductTypeByNameAsync(string name)
+        public async Task<ProductType> FindProductTypeByIdAsync(string code)
         {
             return await context.Set<ProductType>()
-                .Where(x => x.Name == name)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Code == code);
         }
 
         public async Task<IEnumerable<ProductType>> GetAllProductTypesAsync()
         {
-            return await context.Set<ProductType>().ToListAsync();
-                
+            return await context.Set<ProductType>().ToListAsync();    
         }
 
         public void UpdateProductType(ProductType input)

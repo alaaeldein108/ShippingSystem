@@ -18,6 +18,6 @@ namespace Data.Entities.CustomerService.Ticket
         [ForeignKey("Ticket")]
         public string TicketNumber { get; set; }
         public DateTime ReplyTime { get; set; }
-        public ICollection<TicketReplyImages>? Reply_Images { get; set; } = new List<TicketReplyImages>();
+        public ICollection<TicketReplyAttachment>? Reply_Images { get; set; } = new List<TicketReplyAttachment>();
     }
 }

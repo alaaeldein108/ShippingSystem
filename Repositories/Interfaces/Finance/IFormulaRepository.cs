@@ -13,6 +13,7 @@ namespace Repositories.Interfaces.Finance
         Task AddFormulaAsync(Formula input);
         void UpdateFormula(Formula input);
         void DeleteFormula(Formula input);
+        Task<Formula> FindFormulaByIdAsync(int id);
         Task<IEnumerable<Formula>> GetAllFormulasAsync(int quotationId);
     }
 }

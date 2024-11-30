@@ -23,12 +23,10 @@ namespace Repositories.Repositories.CustomerService
             await context.Set<AbnormalReply>().AddAsync(input);
         }
 
-        public async Task<IEnumerable<AbnormalReply>> GetAllAbnormalReplyiesAsync(string Number)
+        public async Task<IEnumerable<AbnormalReply>> GetAllAbnormalReplyiesByAbnormalNumberAsync(string abnormalNumber)
         {
             return await context.Set<AbnormalReply>()
-                .Where(x=>x.AbnormalNumber==Number).ToListAsync();
+                .Where(x => x.AbnormalNumber == abnormalNumber).ToListAsync();
         }
-
-        
     }
 }

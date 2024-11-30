@@ -12,8 +12,7 @@ namespace Repositories.Interfaces.Operation
         Task AddProductTypeAsync(ProductType input);
         void UpdateProductType(ProductType input);
         void DeleteProductType(ProductType input);
-        Task<ProductType> FindProductTypeByCodeAsync(string code);
-        Task<ProductType> FindProductTypeByNameAsync(string name);
+        Task<ProductType> FindProductTypeByIdAsync(string code);
         Task<IEnumerable<ProductType>> GetAllProductTypesAsync();
     }
 }

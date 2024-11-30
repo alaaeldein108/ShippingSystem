@@ -11,7 +11,7 @@ namespace Repositories.Interfaces.Operation
     {
         Task AddScanAsync(Scan input);
         void UpdateScan(Scan input);
-        Task<Scan> FindScanAsync(int code);
+        Task<Scan> FindScanByIdAsync(int code);
         Task<IEnumerable<Scan>> GetAllScansAsync();
     }
 }

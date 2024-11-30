@@ -19,6 +19,7 @@ namespace Data.Entities.Finance
         [ForeignKey("AffailiatedBranch")]
         public string AffailiatedBranchCode { get; set; }
         public string OriginsOrDestinations { get; set; }
+        public StatusEnum Status { get; set; }
         public QuotationTypeEnum QuotationType { get; set; }
         public  ICollection<Quotation_Zone> QuotationZones { get; set; } = new List<Quotation_Zone>();
 

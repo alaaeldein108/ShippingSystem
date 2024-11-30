@@ -23,31 +23,14 @@ namespace Repositories.Repositories.Finance
             await context.Set<Quotation>().AddAsync(input);
         }
 
-        public async Task<IEnumerable<Quotation>> GetAllQuotationsByAuditingAsync(AuditingEnum auditing)
+        public async Task<Quotation> FindQuotationByIdAsync(int id)
         {
-            return await context.Set<Quotation>()
-                .Where(x => x.Auditing == auditing).ToListAsync();
+            return await context.Set<Quotation>().FirstOrDefaultAsync(x=>x.Id==id);
         }
 
-        public async Task<IEnumerable<Quotation>> GetAllQuotationsByBranchAsync(string branchCode)
+        public async Task<IQueryable<Quotation>> GetAllQuotationsAsync()
         {
-            return await context.Set<Quotation>()
-                           .Where(x => x.AffailiatedBranchCode == branchCode)
-                           .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Quotation>> GetAllQuotationsByProductTypeAsync(string productTypeCode)
-        {
-            return await context.Set<Quotation>()
-                                .Where(x => x.ProductTypeCode == productTypeCode)
-                                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Quotation>> GetAllQuotationsByValidationTimeAsync(DateTime startTime, DateTime endTime)
-        {
-            return await context.Set<Quotation>()
-                         .Where(x => x.ActivationStartTime >= startTime && x.ActivationEndTime <= endTime)
-                         .ToListAsync();
+            return context.Set<Quotation>();
         }
 
         public void UpdateQuotation(Quotation input)

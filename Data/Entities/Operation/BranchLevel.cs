@@ -22,7 +22,7 @@ namespace Data.Entities.Operation
         public string ContactPhone { get; set; }
         public DateTime OpenTime { get; set; }
         public LevelTypeEnum LevelType { get; set; }
-        public StatusEnum BranchStatus { get; set; }
+        public StatusEnum Status { get; set; }
         public string? Notes { get; set; }
         public string? PrincipalId { get; set; }
         [Column(TypeName = "decimal(18,2)")]

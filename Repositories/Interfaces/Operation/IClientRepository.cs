@@ -13,13 +13,8 @@ namespace Repositories.Interfaces.Operation
     {
         Task AddClientAsync(Client input);
         void UpdateClient(Client input);
-        Task<Client> FindClientAsync(string input);
-        Task<Client> FindClientPhoneAsync(string input);    
-        Task<IEnumerable<Client>> GetAllClientsByBranchAsync(string branchName);
-        Task<IEnumerable<Client>> GetAllClientsByClientTypeAsync(CustomerTypeEnum customerType);
-        Task<IEnumerable<Client>> GetAllClientsByEnablingAsync(StatusEnum isEnable);
-        Task<IEnumerable<Client>> GetAllClientsByCreationTimeIntervalAsync(DateTime startTime, DateTime endTime);
-        Task<IEnumerable<Client>> GetAllClientsByContractTimeIntervalAsync(DateTime startTime, DateTime endTime);
-
+        Task<Client> FindClientByIdAsync(string id);
+        Task<IEnumerable<Client>> GetAllClientsAsync();
+        
     }
 }

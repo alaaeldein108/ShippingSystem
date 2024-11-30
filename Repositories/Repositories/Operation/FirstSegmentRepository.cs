@@ -30,39 +30,22 @@ namespace Repositories.Repositories.Operation
             context.Set<FirstSegment>().Remove(input);
         }
 
-        public async Task<IEnumerable<FirstSegment>> FindFirstSegmentByCodeAsync(int code)
+        public async Task<FirstSegment> FindFirstSegmentByIdAsync(int id)
         {
             return await context.Set<FirstSegment>()
-                .Include(x=>x.Area)
-                .Where(x=>x.FirstSegmentCode==code)
-                .ToListAsync();
+                            .Include(x => x.Area).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<FirstSegment>> FindFirstSegmentByFinalOrganizationNameAsync(string name)
+        public async Task<IQueryable<FirstSegment>> GetAllFirstSegmentsAsync()
         {
-            return await context.Set<FirstSegment>()
-               .Include(x => x.Area)
-               .Where(x => x.FinalOrganizationName == name)
-               .ToListAsync();
-        }
-
-        public async Task<IEnumerable<FirstSegment>> FindFirstSegmentNameAsync(string name)
-        {
-            return await context.Set<FirstSegment>()
-               .Include(x => x.Area)
-               .Where(x => x.FirstSegmentName == name)
-               .ToListAsync();
-        }
-
-        public async Task<IEnumerable<FirstSegment>> GetAllFirstSegmentsAsync()
-        {
-            return await context.Set<FirstSegment>()
-                .Include(x => x.Area).ToListAsync();
+            return context.Set<FirstSegment>()
+                            .Include(x => x.Area);
         }
 
         public void UpdateFirstSegment(FirstSegment input)
         {
             context.Set<FirstSegment>().Update(input);
         }
+       
     }
 }

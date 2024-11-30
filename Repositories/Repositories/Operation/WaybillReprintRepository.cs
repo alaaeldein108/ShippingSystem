@@ -1,4 +1,6 @@
-﻿using Data.Entities.Operation;
+﻿using Data.Context;
+using Data.Entities.Operation;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Operation;
 using System;
 using System.Collections.Generic;
@@ -10,19 +12,25 @@ namespace Repositories.Repositories.Operation
 {
     public class WaybillReprintRepository : IWaybillReprintRepository
     {
-        public Task AddWaybillReprintAsync(WaybillReprint input)
+        private readonly AppDbContext context;
+
+        public WaybillReprintRepository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
+        }
+        public async Task AddWaybillReprintAsync(WaybillReprint input)
+        {
+            await context.Set<WaybillReprint>().AddAsync(input);
         }
 
-        public Task<WaybillReprint> FindWaybillReprintAsync(string id)
+        public async Task<WaybillReprint> FindWaybillReprintByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await context.Set<WaybillReprint>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<IEnumerable<WaybillReprint>> GetAllWaybillReprintsAsync()
+        public async Task<IQueryable<WaybillReprint>> GetAllWaybillReprintsAsync()
         {
-            throw new NotImplementedException();
+            return context.Set<WaybillReprint>().Include(x=>x.Order);
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using Data.Entities.Operation.Return_ChangeAdd;
+﻿using Data.Context;
+using Data.Entities.Operation.Return_ChangeAdd;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Operation;
 using System;
 using System.Collections.Generic;
@@ -10,24 +12,31 @@ namespace Repositories.Repositories.Operation
 {
     public class ReturnChangeAddWaybillPrintRepository : IReturnChangeAddWaybillPrintRepository
     {
-        public Task AddReturnChangeAddWaybillPrintAsync(Return_ChangeAddWaybillPrint input)
+        private readonly AppDbContext context;
+
+        public ReturnChangeAddWaybillPrintRepository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
+        }
+        public async Task AddReturnChangeAddWaybillPrintAsync(Return_ChangeAddWaybillPrint input)
+        {
+           await context.Set<Return_ChangeAddWaybillPrint>().AddAsync(input);  
         }
 
         public void DeleteReturnChangeAddWaybillPrintAsync(Return_ChangeAddWaybillPrint input)
         {
-            throw new NotImplementedException();
+             context.Set<Return_ChangeAddWaybillPrint>().Remove(input);
         }
 
-        public Task<Return_ChangeAddWaybillPrint> FindReturnChangeAddApplicationAsync(string id)
+        public async Task<Return_ChangeAddWaybillPrint> FindReturnChangeAddApplicationByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await context.Set<Return_ChangeAddWaybillPrint>()
+                            .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<IEnumerable<Return_ChangeAddWaybillPrint>> GetAllReturnChangeAddApplicationsAsync()
+        public async Task<IQueryable<Return_ChangeAddWaybillPrint>> GetAllReturnChangeAddApplicationsAsync()
         {
-            throw new NotImplementedException();
+            return context.Set<Return_ChangeAddWaybillPrint>();
         }
     }
 }

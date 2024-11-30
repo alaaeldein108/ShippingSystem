@@ -15,11 +15,7 @@ namespace Repositories.Interfaces.Operation
         Task AddSecondSegmentAsync(SecondSegment input);
         void UpdateSecondSegment(SecondSegment input);
         void DeleteSecondSegment(SecondSegment input);
-        Task<IEnumerable<SecondSegment>> GetAllSecondSegmentByBranchNameAsync(string name);
-        Task<SecondSegment> FindSecondSegmentByCodeAsync(string code);
-        Task<IEnumerable<SecondSegment>> FindSecondSegmentByFinalOrganizationNameAsync(string name);
-        Task<IEnumerable<SecondSegment>> FindSecondSegmentByEnablingAsync(StatusEnum status);
-        Task<IEnumerable<SecondSegment>> GetAllSecondSegmentAsync();
-        Task<SecondSegment> GetSecondSegmentByAreaAsync(Area area);
+        Task<SecondSegment> FindSecondSegmentByIdAsync(string id);
+        Task<IQueryable<SecondSegment>> GetAllSecondSegmentsAsync();
     }
 }

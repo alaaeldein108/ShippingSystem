@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace Data.Entities.CustomerService.Ticket
         public TicketMainQuestion MainQuestion { get; set; }
         [ForeignKey("MainQuestion")]
         public int MainQuestionId { get; set; }
+        public StatusEnum Status { get; set; }
+
     }
 }

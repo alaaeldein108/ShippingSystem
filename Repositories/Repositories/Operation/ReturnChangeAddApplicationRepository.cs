@@ -1,4 +1,6 @@
-﻿using Data.Entities.Operation.Return_ChangeAdd;
+﻿using Data.Context;
+using Data.Entities.Operation.Return_ChangeAdd;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Operation;
 using System;
 using System.Collections.Generic;
@@ -10,29 +12,31 @@ namespace Repositories.Repositories.Operation
 {
     public class ReturnChangeAddApplicationRepository : IReturnChangeAddApplicationRepository
     {
-        public Task AddReturnChangeAddApplicationAsync(Return_ChangeAdd_App input)
+        private readonly AppDbContext context;
+
+        public ReturnChangeAddApplicationRepository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
+        }
+        public async Task AddReturnChangeAddApplicationAsync(Return_ChangeAdd_App input)
+        {
+            await context.Set<Return_ChangeAdd_App>().AddAsync(input);
         }
 
-        public void DeleteReturnChangeAddApplication(Return_ChangeAdd_App input)
+        public async Task<Return_ChangeAdd_App> FindReturnChangeAddApplicationByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            return await context.Set<Return_ChangeAdd_App>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public Task<Return_ChangeAdd_App> FindReturnChangeAddApplicationAsync(string id)
+        public async Task<IQueryable<Return_ChangeAdd_App>> GetAllReturnChangeAddApplicationsAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<Return_ChangeAdd_App>> GetAllReturnChangeAddApplicationsAsync()
-        {
-            throw new NotImplementedException();
+            return context.Set<Return_ChangeAdd_App>().Include(x => x.Order);
         }
 
         public void UpdateReturnChangeAddApplication(Return_ChangeAdd_App input)
         {
-            throw new NotImplementedException();
+             context.Set<Return_ChangeAdd_App>().Update(input);
         }
+
     }
 }

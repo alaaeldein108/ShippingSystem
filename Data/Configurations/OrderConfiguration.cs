@@ -31,28 +31,6 @@ namespace Data.Configurations
                 .HasForeignKey(e => e.SenderAddressId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
-            builder.HasOne(e => e.DeliveryBR)
-                .WithMany()
-                .HasForeignKey(e => e.DeliveryBRId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-
-            builder.HasOne(e => e.SigningBR)
-                .WithMany()
-                .HasForeignKey(e => e.SigningBRId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(e => e.PickupBR)
-                .WithMany()
-                .HasForeignKey(e => e.PickupBRId)
-                .OnDelete(DeleteBehavior.Restrict);
-
-            builder.HasOne(e => e.LastUpdateBR)
-            .WithMany()
-            .HasForeignKey(e => e.LastUpdateBRId)
-            .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasOne(e => e.Return_ChangeAdd_App)
             .WithOne(c=>c.Order)
             .HasForeignKey<Return_ChangeAdd_App>(e => e.OrderId)

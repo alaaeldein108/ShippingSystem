@@ -24,10 +24,10 @@ namespace Repositories.Repositories.CustomerService
             await context.Set<TicketReply>().AddAsync(input);   
         }
 
-        public async Task<IEnumerable<TicketReply>> GetAllTicketReplyiesAsync(string ticketNumber)
+        public async Task<IEnumerable<TicketReply>> GetAllTicketReplyiesByTicketNumberAsync(string ticketNumber)
         {
             return await context.Set<TicketReply>()
-               .Where(x => x.TicketNumber == ticketNumber).ToListAsync();
+              .Where(x => x.TicketNumber == ticketNumber).ToListAsync();
         }
     }
 }

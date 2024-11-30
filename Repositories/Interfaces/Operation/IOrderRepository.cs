@@ -14,7 +14,7 @@ namespace Repositories.Interfaces.Operation
         Task AddOrderAsync(Order input);
         void UpdateOrder(Order input);
         void DeleteOrder(Order input);
-        Task<Order> FindOrderAsync(string id);
-        Task<IEnumerable<Order>> GetAllOrdersAsync();
+        Task<Order> FindOrderByIdAsync(string id);
+        Task<IQueryable<Order>> GetAllOrdersAsync();
     }
 }

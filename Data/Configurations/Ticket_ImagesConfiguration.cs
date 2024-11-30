@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Data.Configurations
 {
-    public class Ticket_ImagesConfiguration: IEntityTypeConfiguration<TicketReplyImages>
+    public class Ticket_ImagesConfiguration: IEntityTypeConfiguration<TicketReplyAttachment>
     {
-        public void Configure(EntityTypeBuilder<TicketReplyImages> builder)
+        public void Configure(EntityTypeBuilder<TicketReplyAttachment> builder)
         {
             builder.HasKey(x => new
             {

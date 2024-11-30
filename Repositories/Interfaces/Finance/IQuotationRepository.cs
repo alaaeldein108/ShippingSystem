@@ -1,4 +1,5 @@
-﻿using Data.Entities.Finance;
+﻿using Data.Entities.CustomerService.Abnormal;
+using Data.Entities.Finance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,8 @@ namespace Repositories.Interfaces.Finance
     {
         Task AddQuotationAsync(Quotation input);
         void UpdateQuotation(Quotation input);
-        Task<IEnumerable<Quotation>> GetAllQuotationsByBranchAsync(string branchCode);
-        Task<IEnumerable<Quotation>> GetAllQuotationsByValidationTimeAsync(DateTime startTime, DateTime endTime);
-        Task<IEnumerable<Quotation>> GetAllQuotationsByAuditingAsync(AuditingEnum auditing);
-        Task<IEnumerable<Quotation>> GetAllQuotationsByProductTypeAsync(string productTypeCode);
+        Task<Quotation> FindQuotationByIdAsync(int id);
+        Task<IQueryable<Quotation>> GetAllQuotationsAsync();
+       
     }
 }

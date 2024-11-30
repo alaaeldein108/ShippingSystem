@@ -11,6 +11,6 @@ namespace Repositories.Interfaces.Operation
     {
         Task AddOrderScanAsync(Order_Scan input);
         void DeleteOrderScan(Order_Scan input);
-        Task<IEnumerable<Order_Scan>> GetAllOrderScansAsync(string wabillNumber);
+        Task<IQueryable<Order_Scan>> GetAllOrderScansAsync();
     }
 }

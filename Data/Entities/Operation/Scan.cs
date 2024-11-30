@@ -14,7 +14,7 @@ namespace Data.Entities.Operation
         public int ScanCode { get; set; }
         public string ScanTypeName { get; set; }
         public string Description { get; set; }
-        public StatusEnum IsActive { get; set; }=StatusEnum.Active;
+        public StatusEnum Status { get; set; }=StatusEnum.Active;
         public  ICollection<Order_Scan> Order_Scans { get; set; } = new List<Order_Scan>();
 
     }

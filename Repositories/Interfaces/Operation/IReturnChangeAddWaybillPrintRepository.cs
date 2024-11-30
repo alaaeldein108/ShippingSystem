@@ -11,7 +11,7 @@ namespace Repositories.Interfaces.Operation
     {
         Task AddReturnChangeAddWaybillPrintAsync(Return_ChangeAddWaybillPrint input);
         void DeleteReturnChangeAddWaybillPrintAsync(Return_ChangeAddWaybillPrint input);
-        Task<Return_ChangeAddWaybillPrint> FindReturnChangeAddApplicationAsync(string id);
-        Task<IEnumerable<Return_ChangeAddWaybillPrint>> GetAllReturnChangeAddApplicationsAsync();
+        Task<Return_ChangeAddWaybillPrint> FindReturnChangeAddApplicationByIdAsync(string id);
+        Task<IQueryable<Return_ChangeAddWaybillPrint>> GetAllReturnChangeAddApplicationsAsync();
     }
 }

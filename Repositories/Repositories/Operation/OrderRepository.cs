@@ -1,4 +1,6 @@
-﻿using Data.Entities.Operation;
+﻿using Data.Context;
+using Data.Entities.Operation;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Operation;
 using System;
 using System.Collections.Generic;
@@ -10,29 +12,37 @@ namespace Repositories.Repositories.Operation
 {
     public class OrderRepository : IOrderRepository
     {
-        public Task AddOrderAsync(Order input)
+        private readonly AppDbContext context;
+
+        public OrderRepository(AppDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
+        }
+        public async Task AddOrderAsync(Order input)
+        {
+            await context.Set<Order>().AddAsync(input);
         }
 
         public void DeleteOrder(Order input)
         {
-            throw new NotImplementedException();
+            context.Set<Order>().Remove(input);
         }
 
-        public Task<Order> FindOrderAsync(string id)
+        public async Task<Order> FindOrderByIdAsync(string id)
         {
-            throw new NotImplementedException();
+           return await context.Set<Order>().FirstOrDefaultAsync(x=>x.OrderNumber==id);
         }
 
-        public Task<IEnumerable<Order>> GetAllOrdersAsync()
+        public async Task<IQueryable<Order>> GetAllOrdersAsync()
         {
-            throw new NotImplementedException();
+            return  context.Set<Order>().Include(x=>x.SenderAddress).Include(x=>x.RecieverAddress);
         }
 
         public void UpdateOrder(Order input)
         {
-            throw new NotImplementedException();
+            context.Set<Order>().Update(input);
         }
+
+
     }
 }

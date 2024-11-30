@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Data.Entities.CustomerService.Ticket
 {
-    public class TicketReplyImages
+    public class TicketAttachements
     {
-        public TicketReply TicketReply { get; set; }
-        [ForeignKey("TicketReply")]
-        public string TicketReplyId { get; set; }
-        public string PictureUrl { get; set; }
+        public Ticket Ticket { get; set; }
+        [ForeignKey("Ticket")]
+        public string TicketNumber { get; set; }
+        public string AttachmentURL { get; set; }
     }
 }

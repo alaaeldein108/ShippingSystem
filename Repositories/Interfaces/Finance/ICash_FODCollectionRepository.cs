@@ -1,4 +1,5 @@
-﻿using Data.Entities.CustomerService.Ticket;
+﻿using Data.Entities.CustomerService.Abnormal;
+using Data.Entities.CustomerService.Ticket;
 using Data.Entities.Finance;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace Repositories.Interfaces.Finance
     {
         Task AddCash_FODCollectionAsync(Cash_FODCollection input);
         void UpdateCash_FODCollection(Cash_FODCollection input);
-        Task<Cash_FODCollection> FindCash_FODCollectionByWaybillAsync(string waybillNumber);
+        Task<Cash_FODCollection> FindCash_FODCollectionByIdAsync(string billNumber);
+        Task<IQueryable<Cash_FODCollection>> GetAllCashFODCollectionsAsync();
+
     }
 }

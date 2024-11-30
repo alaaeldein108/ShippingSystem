@@ -39,7 +39,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Areas");
+                    b.ToTable("Areas", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Addresses.City", b =>
@@ -59,7 +59,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ProvinceId");
 
-                    b.ToTable("Cities");
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Addresses.Province", b =>
@@ -73,7 +73,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Provinces");
+                    b.ToTable("Provinces", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Addresses.ReceiverAddressBook", b =>
@@ -116,7 +116,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("ReceiverAddressBooks");
+                    b.ToTable("ReceiverAddressBooks", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Addresses.SenderAddressBook", b =>
@@ -159,7 +159,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("SenderAddressBooks");
+                    b.ToTable("SenderAddressBooks", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Abnormal.Abnormal", b =>
@@ -181,10 +181,6 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RegisterBrId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("RegisterId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -198,9 +194,7 @@ namespace Data.Migrations
 
                     b.HasIndex("OrderNumber");
 
-                    b.HasIndex("RegisterBrId");
-
-                    b.ToTable("Abnormals");
+                    b.ToTable("Abnormals", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Abnormal.AbnormalImages", b =>
@@ -213,7 +207,7 @@ namespace Data.Migrations
 
                     b.HasKey("AbnormalNumber", "PictureUrl");
 
-                    b.ToTable("AbnormalImages");
+                    b.ToTable("AbnormalImages", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Abnormal.AbnormalMainReason", b =>
@@ -224,13 +218,16 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("AbnormalMainReasons");
+                    b.ToTable("AbnormalMainReasons", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Abnormal.AbnormalReply", b =>
@@ -253,7 +250,7 @@ namespace Data.Migrations
 
                     b.HasIndex("AbnormalNumber");
 
-                    b.ToTable("AbnormalReplies");
+                    b.ToTable("AbnormalReplies", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Abnormal.AbnormalReplyImages", b =>
@@ -266,7 +263,7 @@ namespace Data.Migrations
 
                     b.HasKey("ReplyNumber", "PictureUrl");
 
-                    b.ToTable("AbnormalReplyImages");
+                    b.ToTable("AbnormalReplyImages", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Abnormal.AbnormalSubReason", b =>
@@ -280,6 +277,9 @@ namespace Data.Migrations
                     b.Property<int>("MainReasonId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -288,7 +288,7 @@ namespace Data.Migrations
 
                     b.HasIndex("MainReasonId");
 
-                    b.ToTable("AbnormalSubReasons");
+                    b.ToTable("AbnormalSubReasons", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Ticket.Ticket", b =>
@@ -334,7 +334,20 @@ namespace Data.Migrations
 
                     b.HasIndex("SubQuestionId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
+                });
+
+            modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketAttachements", b =>
+                {
+                    b.Property<string>("TicketNumber")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("AttachmentURL")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("TicketNumber", "AttachmentURL");
+
+                    b.ToTable("TicketAttachements", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketMainQuestion", b =>
@@ -345,13 +358,16 @@ namespace Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TicketMainQuestions");
+                    b.ToTable("TicketMainQuestions", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketReply", b =>
@@ -374,10 +390,10 @@ namespace Data.Migrations
 
                     b.HasIndex("TicketNumber");
 
-                    b.ToTable("TicketReply");
+                    b.ToTable("TicketReplies", (string)null);
                 });
 
-            modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketReplyImages", b =>
+            modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketReplyAttachment", b =>
                 {
                     b.Property<string>("TicketReplyId")
                         .HasColumnType("nvarchar(450)");
@@ -387,7 +403,7 @@ namespace Data.Migrations
 
                     b.HasKey("TicketReplyId", "PictureUrl");
 
-                    b.ToTable("TicketReplyImages");
+                    b.ToTable("TicketReplyAttachments", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketSubQuestion", b =>
@@ -401,6 +417,9 @@ namespace Data.Migrations
                     b.Property<int>("MainQuestionId")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -409,7 +428,7 @@ namespace Data.Migrations
 
                     b.HasIndex("MainQuestionId");
 
-                    b.ToTable("TicketSubQuestions");
+                    b.ToTable("TicketSubQuestions", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Finance.Cash_FODCollection", b =>
@@ -439,7 +458,7 @@ namespace Data.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("Cash_FODCollections");
+                    b.ToTable("Cash_FODCollections", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Finance.ClientQuotation", b =>
@@ -454,7 +473,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ClientCode");
 
-                    b.ToTable("ClientQuotations");
+                    b.ToTable("ClientQuotations", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Finance.COD_Collection", b =>
@@ -481,7 +500,7 @@ namespace Data.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("COD_Collections");
+                    b.ToTable("COD_Collections", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Finance.Formula", b =>
@@ -515,7 +534,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ZoneId", "QuotationId");
 
-                    b.ToTable("Formulas");
+                    b.ToTable("Formulas", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Finance.Quotation", b =>
@@ -546,9 +565,6 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EnableStatus")
-                        .HasColumnType("int");
-
                     b.Property<int>("FinanceCentre")
                         .HasColumnType("int");
 
@@ -575,13 +591,16 @@ namespace Data.Migrations
                     b.Property<int>("QuotationType")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AffailiatedBranchCode");
 
                     b.HasIndex("ProductTypeCode");
 
-                    b.ToTable("Quotations");
+                    b.ToTable("Quotations", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Finance.Quotation_Zone", b =>
@@ -600,7 +619,7 @@ namespace Data.Migrations
 
                     b.HasIndex("QuotationId");
 
-                    b.ToTable("Quotation_Zones");
+                    b.ToTable("Quotation_Zones", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Finance.Zone", b =>
@@ -639,6 +658,9 @@ namespace Data.Migrations
                     b.Property<int>("QuotationType")
                         .HasColumnType("int");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<int>("ZoneType")
                         .HasColumnType("int");
 
@@ -646,7 +668,7 @@ namespace Data.Migrations
 
                     b.HasIndex("AffailiatedBranchCode");
 
-                    b.ToTable("Zones");
+                    b.ToTable("Zones", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.IdentityEntities.AppRole", b =>
@@ -828,7 +850,7 @@ namespace Data.Migrations
 
                     b.HasKey("Code");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.IdentityEntities.Position", b =>
@@ -861,7 +883,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DepartmentCode");
 
-                    b.ToTable("Positions");
+                    b.ToTable("Positions", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.BranchLevel", b =>
@@ -872,9 +894,6 @@ namespace Data.Migrations
                     b.Property<string>("AreaId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("BranchStatus")
-                        .HasColumnType("int");
 
                     b.Property<string>("ContactPhone")
                         .IsRequired()
@@ -909,6 +928,9 @@ namespace Data.Migrations
                     b.Property<string>("PrincipalId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<decimal?>("Wallet")
                         .HasColumnType("decimal(18,2)");
 
@@ -916,7 +938,7 @@ namespace Data.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.ToTable("BranchLevels");
+                    b.ToTable("BranchLevels", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Client", b =>
@@ -977,9 +999,6 @@ namespace Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IsEnable")
-                        .HasColumnType("int");
-
                     b.Property<decimal?>("MaxCODAmount")
                         .HasColumnType("decimal(18,2)");
 
@@ -999,6 +1018,9 @@ namespace Data.Migrations
                     b.Property<string>("SalesPersonId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
@@ -1014,7 +1036,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CustomerBRId");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.COD_FOD_Adjustment.COD_FOD_Application", b =>
@@ -1067,11 +1089,14 @@ namespace Data.Migrations
                     b.Property<DateTime>("RegisterTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrderNumber");
 
-                    b.ToTable("COD_FOD_Applications");
+                    b.ToTable("COD_FOD_Applications", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Order", b =>
@@ -1106,11 +1131,10 @@ namespace Data.Migrations
                     b.Property<int?>("CustomerPickupNo")
                         .HasColumnType("int");
 
-                    b.Property<string>("DeliveryBRId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("DeliveryCenter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeliveryCourier")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("DeliveryFees")
@@ -1152,12 +1176,11 @@ namespace Data.Migrations
                     b.Property<int>("ItemWeight")
                         .HasColumnType("int");
 
-                    b.Property<string>("LastUpdateBRId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime?>("LastUpdateTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("LastUpdator")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Length")
                         .HasColumnType("decimal(18,2)");
@@ -1174,9 +1197,8 @@ namespace Data.Migrations
                     b.Property<string>("OriginCenter")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PickupBRId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("PickupCourier")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PickupDate")
                         .HasColumnType("datetime2");
@@ -1233,12 +1255,14 @@ namespace Data.Migrations
                     b.Property<int>("SettlmentMethod")
                         .HasColumnType("int");
 
-                    b.Property<string>("SigningBRId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("SigningCourier")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("SigningTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalFees")
                         .ValueGeneratedOnAddOrUpdate()
@@ -1266,21 +1290,13 @@ namespace Data.Migrations
 
                     b.HasIndex("ClientCode");
 
-                    b.HasIndex("DeliveryBRId");
-
-                    b.HasIndex("LastUpdateBRId");
-
-                    b.HasIndex("PickupBRId");
-
                     b.HasIndex("ProductTypeCode");
 
                     b.HasIndex("RecieverAddressId");
 
                     b.HasIndex("SenderAddressId");
 
-                    b.HasIndex("SigningBRId");
-
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Order_Scan", b =>
@@ -1322,7 +1338,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ScanCode");
 
-                    b.ToTable("Order_Scans");
+                    b.ToTable("Order_Scans", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.ProductType", b =>
@@ -1347,9 +1363,12 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("Code");
 
-                    b.ToTable("ProductTypes");
+                    b.ToTable("ProductTypes", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Return_ChangeAdd.Return_ChangeAdd_App", b =>
@@ -1393,7 +1412,7 @@ namespace Data.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("Return_ChangeAdd_Apps");
+                    b.ToTable("Return_ChangeAdd_Apps", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Return_ChangeAdd.Return_ChangeAddWaybillPrint", b =>
@@ -1419,7 +1438,7 @@ namespace Data.Migrations
 
                     b.HasIndex("Return_ChangeAdd_AppId");
 
-                    b.ToTable("Return_ChangeAddWaybillPrints");
+                    b.ToTable("Return_ChangeAddWaybillPrints", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Scan", b =>
@@ -1441,9 +1460,6 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IsActive")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("ModificationTime")
                         .HasColumnType("datetime2");
 
@@ -1454,9 +1470,12 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.HasKey("ScanCode");
 
-                    b.ToTable("Scans");
+                    b.ToTable("Scans", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Sorting.FirstSegment", b =>
@@ -1493,7 +1512,7 @@ namespace Data.Migrations
 
                     b.HasIndex("AreaId");
 
-                    b.ToTable("FirstSegments");
+                    b.ToTable("FirstSegments", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Sorting.SecondSegment", b =>
@@ -1523,7 +1542,7 @@ namespace Data.Migrations
 
                     b.HasIndex("FirstSegmentId");
 
-                    b.ToTable("SecondSegments");
+                    b.ToTable("SecondSegments", (string)null);
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.WaybillReprint", b =>
@@ -1555,7 +1574,7 @@ namespace Data.Migrations
 
                     b.HasIndex("PrintBranchId");
 
-                    b.ToTable("WaybillReprints");
+                    b.ToTable("WaybillReprints", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1718,17 +1737,9 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Data.Entities.Operation.BranchLevel", "RegisterBr")
-                        .WithMany()
-                        .HasForeignKey("RegisterBrId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("AbnormalSubReason");
 
                     b.Navigation("Order");
-
-                    b.Navigation("RegisterBr");
                 });
 
             modelBuilder.Entity("Data.Entities.CustomerService.Abnormal.AbnormalImages", b =>
@@ -1794,6 +1805,17 @@ namespace Data.Migrations
                     b.Navigation("SubQuestion");
                 });
 
+            modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketAttachements", b =>
+                {
+                    b.HasOne("Data.Entities.CustomerService.Ticket.Ticket", "Ticket")
+                        .WithMany()
+                        .HasForeignKey("TicketNumber")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ticket");
+                });
+
             modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketReply", b =>
                 {
                     b.HasOne("Data.Entities.CustomerService.Ticket.Ticket", "Ticket")
@@ -1805,7 +1827,7 @@ namespace Data.Migrations
                     b.Navigation("Ticket");
                 });
 
-            modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketReplyImages", b =>
+            modelBuilder.Entity("Data.Entities.CustomerService.Ticket.TicketReplyAttachment", b =>
                 {
                     b.HasOne("Data.Entities.CustomerService.Ticket.TicketReply", "TicketReply")
                         .WithMany("Reply_Images")
@@ -2032,24 +2054,6 @@ namespace Data.Migrations
                         .WithMany("Orders")
                         .HasForeignKey("ClientCode");
 
-                    b.HasOne("Data.Entities.Operation.BranchLevel", "DeliveryBR")
-                        .WithMany()
-                        .HasForeignKey("DeliveryBRId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Data.Entities.Operation.BranchLevel", "LastUpdateBR")
-                        .WithMany()
-                        .HasForeignKey("LastUpdateBRId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Data.Entities.Operation.BranchLevel", "PickupBR")
-                        .WithMany()
-                        .HasForeignKey("PickupBRId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Data.Entities.Operation.ProductType", "ProductType")
                         .WithMany()
                         .HasForeignKey("ProductTypeCode")
@@ -2068,27 +2072,13 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Data.Entities.Operation.BranchLevel", "SigningBR")
-                        .WithMany()
-                        .HasForeignKey("SigningBRId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Client");
-
-                    b.Navigation("DeliveryBR");
-
-                    b.Navigation("LastUpdateBR");
-
-                    b.Navigation("PickupBR");
 
                     b.Navigation("ProductType");
 
                     b.Navigation("RecieverAddress");
 
                     b.Navigation("SenderAddress");
-
-                    b.Navigation("SigningBR");
                 });
 
             modelBuilder.Entity("Data.Entities.Operation.Order_Scan", b =>

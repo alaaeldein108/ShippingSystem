@@ -1,4 +1,5 @@
-﻿using Data.Entities.Finance;
+﻿using Data.Entities.CustomerService.Abnormal;
+using Data.Entities.Finance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace Repositories.Interfaces.Finance
     {
         Task AddCODCollectionAsync(COD_Collection input);
         void UpdateCODCollection(COD_Collection input);
-        Task<COD_Collection> FindCODCollectionByWaybillAsync(string waybillNumber);
+        Task<COD_Collection> FindCODCollectionByIdAsync(string billNumber);
+        Task<IQueryable<COD_Collection>> GetAllCODCollectionsAsync();
+
     }
 }

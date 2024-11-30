@@ -13,9 +13,7 @@ namespace Repositories.Interfaces.Operation
         Task AddFirstSegmentAsync(FirstSegment input);
         void UpdateFirstSegment(FirstSegment input);
         void DeleteFirstSegment(FirstSegment input);
-        Task<IEnumerable<FirstSegment>> FindFirstSegmentByCodeAsync(int code);
-        Task<IEnumerable<FirstSegment>> FindFirstSegmentNameAsync(string name);
-        Task<IEnumerable<FirstSegment>> FindFirstSegmentByFinalOrganizationNameAsync(string name);
-        Task<IEnumerable<FirstSegment>> GetAllFirstSegmentsAsync();
+        Task<FirstSegment> FindFirstSegmentByIdAsync(int id);
+        Task<IQueryable<FirstSegment>> GetAllFirstSegmentsAsync();
     }
 }

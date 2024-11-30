@@ -23,7 +23,7 @@ namespace Repositories.Repositories.Operation
             await context.Set<Scan>().AddAsync(input);
         }
 
-        public async Task<Scan> FindScanAsync(int code)
+        public async Task<Scan> FindScanByIdAsync(int code)
         {
             return await context.Set<Scan>().FindAsync(code);
         }

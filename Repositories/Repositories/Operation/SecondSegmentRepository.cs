@@ -31,39 +31,13 @@ namespace Repositories.Repositories.Operation
             context.Set<SecondSegment>().Remove(input);
         }
 
-        public async Task<SecondSegment> FindSecondSegmentByCodeAsync(string code)
+        public async Task<SecondSegment> FindSecondSegmentByIdAsync(string id)
         {
-           return await context.Set<SecondSegment>().FindAsync(code);
+           return await context.Set<SecondSegment>().FirstOrDefaultAsync(x=>x.Id==id);
         }
-
-        public async Task<IEnumerable<SecondSegment>> FindSecondSegmentByEnablingAsync(StatusEnum status)
+        public async Task<IQueryable<SecondSegment>> GetAllSecondSegmentsAsync()
         {
-            return await context.Set<SecondSegment>()
-                .Where(x=>x.Status==status).ToListAsync();
-        }
-
-        public async Task<IEnumerable<SecondSegment>> FindSecondSegmentByFinalOrganizationNameAsync(string name)
-        {
-            return await context.Set<SecondSegment>().Include(x=>x.FirstSegment)
-                .Where(x => x.FirstSegment.FinalOrganizationName == name).ToListAsync();
-        }
-
-        public async Task<IEnumerable<SecondSegment>> GetAllSecondSegmentAsync()
-        {
-             return await context.Set<SecondSegment>().ToListAsync();
-        }
-
-        public async Task<IEnumerable<SecondSegment>> GetAllSecondSegmentByBranchNameAsync(string name)
-        {
-            return await context.Set<SecondSegment>().Include(x => x.Branch)
-                .Where(x => x.Branch.Name == name).ToListAsync();
-        }
-
-        public async Task<SecondSegment> GetSecondSegmentByAreaAsync(Area area)
-        {
-            return await context.Set<SecondSegment>()
-                .Include(x => x.Area)
-               .FirstOrDefaultAsync(x => x.AreaId == area.Id);
+           return  context.Set<SecondSegment>().Include(x=>x.Area).Include(x=>x.Branch);
         }
 
         public void UpdateSecondSegment(SecondSegment input)

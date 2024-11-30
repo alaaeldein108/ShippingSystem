@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace Data.Entities.Operation
         [Key]
         public string Code { get; set; }
         public string Name { get; set; }
+        public StatusEnum Status { get; set; }
+
     }
 }

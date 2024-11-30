@@ -12,6 +12,7 @@ namespace Repositories.Interfaces.Addresses
         Task AddRecieverAddressAsync(ReceiverAddressBook input);
         void UpdateRecieverAddress(ReceiverAddressBook input);
         void DeleteRecieverAddress(ReceiverAddressBook input);
-        Task<IEnumerable<ReceiverAddressBook>> FindSenderAddressesByClientCodeAsync(string clientId);
+        Task<ReceiverAddressBook> FindRecieverAddressBookByIdAsync(int id);
+        Task<IQueryable<ReceiverAddressBook>> GetRecieverAddressesAsync();
     }
 }

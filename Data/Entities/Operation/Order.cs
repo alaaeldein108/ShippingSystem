@@ -17,7 +17,7 @@ using Data.Entities.CustomerService.Ticket;
 
 namespace Data.Entities.Operation
 {
-    public enum OrderStatus
+    public enum OrderStatusEnum
     {
         Printed,
         UnPrinted,
@@ -55,7 +55,7 @@ namespace Data.Entities.Operation
         [ForeignKey("ProductType")]
         public string ProductTypeCode { get; set; }
         public OrderTypeEnum OrderType { get; set; }
-        public OrderStatus OrderStatus { get; set; } = OrderStatus.UnPrinted;
+        public OrderStatusEnum OrderStatus { get; set; } = OrderStatusEnum.UnPrinted;
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal DeliveryFees { get; set; } = 0;
@@ -80,15 +80,9 @@ namespace Data.Entities.Operation
         public DateTime? PickupDate { get; set; }
         public string? OriginCenter { get; set; }
         public string? DeliveryCenter { get; set; }
-        public BranchLevel PickupBR { get; set; }
-        [ForeignKey("PickupBR")]
-        public string? PickupBRId { get; set; }
-        public BranchLevel DeliveryBR { get; set; }
-        [ForeignKey("DeliveryBR")]
-        public string? DeliveryBRId { get; set; }
-        public BranchLevel SigningBR { get; set; }
-        [ForeignKey("SigningBR")]
-        public string? SigningBRId { get; set; }
+        public string? PickupCourier { get; set; }
+        public string? DeliveryCourier { get; set; }
+        public string? SigningCourier { get; set; }
         public DateTime? DeliveryTime { get; set; }
         public DateTime? SigningTime { get; set; }
 
@@ -122,12 +116,11 @@ namespace Data.Entities.Operation
         [Column(TypeName = "decimal(18,2)")]
         public decimal HubWeight { get; set; } = 0;
         [Column(TypeName = "decimal(18,2)")]
-        public decimal InternalWeight { get; set; } = 0;       
+        public decimal InternalWeight { get; set; } = 0;
+        public StatusEnum Status { get; set; }
         public VoidedStatusEnum Voided { get; set; } = VoidedStatusEnum.UnVoided;
         public DateTime? LastUpdateTime { get; set; }
-        public BranchLevel LastUpdateBR { get; set; }
-        [ForeignKey("LastUpdateBR")]
-        public string? LastUpdateBRId { get; set; }
+        public string? LastUpdator { get; set; }
         public string? TripleNumber { get; set; }
         public int? OFDTimes { get; set; }
         public SettlmentMethodEnum SettlmentMethod { get; set; }

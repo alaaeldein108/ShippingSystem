@@ -22,23 +22,22 @@ namespace Repositories.Repositories.CustomerService
         {
             await context.Set<Abnormal>().AddAsync(input);
         }
-        public void UpdateAbnormalAsync(Abnormal input)
+        public void UpdateAbnormal(Abnormal input)
         {
             context.Set<Abnormal>().Update(input);
         }
-        public async Task<IEnumerable<Abnormal>> GetAllAbnormalsByWaybillAsync(string waybillNumber)
-        {
-            return await context.Set<Abnormal>()
-                .Include(x => x.Order)
-                .Include(x => x.Order.PickupBR)
-                .Include(x => x.AbnormalSubReason)
-                .Include(x => x.AbnormalSubReason.MainReason)
-                .Include(x => x.RegisterBr)
-                .Where(x => x.Order.WaybillNumber == waybillNumber)
-                .ToListAsync();
 
+        public async Task<IQueryable<Abnormal>> GetAllAbnormalsAsync()
+        {
+            return context.Set<Abnormal>()
+               .Include(x => x.Order)
+               .Include(x => x.AbnormalSubReason)
+               .ThenInclude(x => x.MainReason);
         }
 
-        
+        public async Task<Abnormal> FindAbnormalById(string Number)
+        {
+            return await context.Set<Abnormal>().FirstOrDefaultAsync(x => x.Number == Number);
+        }
     }
 }

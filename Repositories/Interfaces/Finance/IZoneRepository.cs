@@ -1,4 +1,5 @@
-﻿using Data.Entities.Enums;
+﻿using Data.Entities.CustomerService.Abnormal;
+using Data.Entities.Enums;
 using Data.Entities.Finance;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,8 @@ namespace Repositories.Interfaces.Finance
         Task AddZoneAsync(Zone input);
         void UpdateZone(Zone input);
         void DeleteZone(Zone input);
-        Task<IEnumerable<Zone>> GetAllZonesByNameAsync(string input);
-        Task<IEnumerable<Zone>> GetAllZonesByDestinationAsync(string input);
-        Task<IEnumerable<Zone>> GetAllZonesByBranchAsync(string input);
-        Task<IEnumerable<Zone>> GetAllZonesByTypeAsync(ZoneTypeEnum zoneType);
-        Task<IEnumerable<Zone>> GetAllZonesByQuotationTypeAsync(QuotationTypeEnum quotationType);
+        Task<Zone> FindZoneByIdAsync(int id);
+        Task<IQueryable<Zone>> GetAllZonesAsync();
+       
     }
 }

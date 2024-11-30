@@ -1,5 +1,6 @@
 ﻿using Data.Context;
 using Data.Entities.Addresses;
+using Data.Entities.Operation;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Addresses;
 using System;
@@ -27,10 +28,15 @@ namespace Repositories.Repositories.Addresses
         {
             context.Set<SenderAddressBook>().Remove(input);
         }
-        public async Task<IEnumerable<SenderAddressBook>> FindSenderAddressesByClientCodeAsync(string clientId)
+
+        public async Task<SenderAddressBook> FindSenderAddressBookByIdAsync(int id)
         {
-            return await context.Set<SenderAddressBook>()
-                .Where(x=>x.ClientId== clientId).ToListAsync();
+            return await context.Set<SenderAddressBook>().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<IQueryable<SenderAddressBook>> GetSenderAddressesAsync()
+        {
+            return  context.Set<SenderAddressBook>();
         }
 
         public void UpdateSenderAddress(SenderAddressBook input)

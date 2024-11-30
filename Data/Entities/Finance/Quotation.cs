@@ -26,7 +26,7 @@ namespace Data.Entities.Finance
         public ProductType ProductType { get; set; }
         [ForeignKey("ProductType")]
         public string ProductTypeCode { get; set; }
-        public StatusEnum EnableStatus { get; set; }
+        public StatusEnum Status { get; set; }
         public AuditingEnum Auditing { get; set; }= AuditingEnum.Unaudited;
         public DateTime ActivationStartTime { get; set; }
         public DateTime ActivationEndTime { get; set; }

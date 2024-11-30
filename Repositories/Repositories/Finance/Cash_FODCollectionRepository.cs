@@ -26,13 +26,16 @@ namespace Repositories.Repositories.Finance
         {
             context.Set<Cash_FODCollection>().Update(input);
         }
-        public async Task<Cash_FODCollection> FindCash_FODCollectionByWaybillAsync(string waybillNumber)
+        public async Task<Cash_FODCollection> FindCash_FODCollectionByIdAsync(string billNumber)
         {
             return await context.Set<Cash_FODCollection>()
                   .Include(x => x.Order)
-                 .Where(x => x.Order.WaybillNumber == waybillNumber)
-                 .FirstOrDefaultAsync();
+                  .FirstOrDefaultAsync(x => x.BillNumber == billNumber);
         }
-     
+
+        public async Task<IQueryable<Cash_FODCollection>> GetAllCashFODCollectionsAsync()
+        {
+            return context.Set<Cash_FODCollection>().Include(x=>x.Order);
+        }
     }
 }

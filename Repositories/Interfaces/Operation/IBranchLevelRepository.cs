@@ -13,7 +13,7 @@ namespace Repositories.Interfaces.Operation
         Task AddBranchLevelAsync(BranchLevel input);
         void UpdateBranchLevel(BranchLevel input);
         void DeleteBranchLevel(BranchLevel input);
-        Task<BranchLevel> FindBranchLevelAsync(string name);
-        Task<IEnumerable<BranchLevel>> GetAllBranchLevelsAsync();
+        Task<BranchLevel> FindBranchLevelByIdAsync(string id);
+        Task<IQueryable<BranchLevel>> GetAllBranchLevelsAsync();
     }
 }

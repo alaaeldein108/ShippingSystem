@@ -20,7 +20,7 @@ namespace Data.Entities.Operation.Return_ChangeAdd
         Auditing,
         Reviewed,
         Rejected,
-        Cancel
+        Canceled
     }
     public enum PrintStatus
     {

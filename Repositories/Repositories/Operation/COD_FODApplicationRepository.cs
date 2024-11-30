@@ -26,14 +26,15 @@ namespace Repositories.Repositories.Operation
         {
             context.Set<COD_FOD_Application>().AddAsync(input);
         }
-        public async Task<IEnumerable<COD_FOD_Application>> GetAllCOD_FODApplicationsByWaybillAsync(string waybillNumber)
+       
+        public async Task<COD_FOD_Application> FindCOD_FODApplicationByIdAsync(int id)
         {
-            return await context.Set<COD_FOD_Application>()
-                .Include(x=>x.Order)
-                .Where(x=>x.Order.WaybillNumber== waybillNumber)
-                .ToListAsync();
+            return await context.Set<COD_FOD_Application>().FindAsync(id);
         }
 
-        
+        public async Task<IQueryable<COD_FOD_Application>> GetAllCOD_FODApplicationsAsync()
+        {
+            return context.Set<COD_FOD_Application>();
+        }
     }
 }

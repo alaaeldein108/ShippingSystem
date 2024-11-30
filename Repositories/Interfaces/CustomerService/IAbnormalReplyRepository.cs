@@ -10,6 +10,6 @@ namespace Repositories.Interfaces.CustomerService
     public interface IAbnormalReplyRepository
     {
         Task AddAbnormalReplyAsync(AbnormalReply input);
-        Task<IEnumerable<AbnormalReply>> GetAllAbnormalReplyiesAsync(string abnormalNumber);
+        Task<IEnumerable<AbnormalReply>> GetAllAbnormalReplyiesByAbnormalNumberAsync(string abnormalNumber);
     }
 }

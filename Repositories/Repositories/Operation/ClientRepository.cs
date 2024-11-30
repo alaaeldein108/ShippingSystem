@@ -25,53 +25,15 @@ namespace Repositories.Repositories.Operation
             await context.Set<Client>().AddAsync(input);
         }
 
-        public async Task<Client> FindClientAsync(string input)
+        public async Task<Client> FindClientByIdAsync(string id)
         {
             return await context.Set<Client>()
-                .Where(x=>x.ClientCode==input || x.ClientName==input)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.ClientCode == id);
         }
 
-        public async Task<Client> FindClientPhoneAsync(string input)
+        public async Task<IEnumerable<Client>> GetAllClientsAsync()
         {
-            return await context.Set<Client>()
-                .Where(x => x.PhoneNumber == input)
-                .FirstOrDefaultAsync();
-        }
-
-        public async Task<IEnumerable<Client>> GetAllClientsByBranchAsync(string branchName)
-        {
-            return await context.Set<Client>()
-                .Include(x => x.CustomerBR)
-                .Where(x => x.CustomerBR.Name == branchName).ToListAsync();
-                
-        }
-
-        public async Task<IEnumerable<Client>> GetAllClientsByClientTypeAsync(CustomerTypeEnum customerType)
-        {
-            return await context.Set<Client>()
-                .Where(x => x.CustomerType == customerType).ToListAsync();
-        }
-
-        public async Task<IEnumerable<Client>> GetAllClientsByContractTimeIntervalAsync(DateTime startTime, DateTime endTime)
-        {
-            return await context.Set<Client>()
-                        .Where(x => x.ContractStartTime >= startTime && x.ContractEndTime <= endTime)
-                        .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Client>> GetAllClientsByCreationTimeIntervalAsync(DateTime startTime, DateTime endTime)
-        {
-            return await context.Set<Client>()
-                       .Where(x => x.CreatedTime >= startTime && x.CreatedTime <= endTime)
-                       .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Client>> GetAllClientsByEnablingAsync(StatusEnum isEnable)
-        {
-            return await context.Set<Client>()
-                .Where(x=>x.IsEnable == isEnable)
-                .ToListAsync();
+            return context.Set<Client>();
         }
 
         public void UpdateClient(Client input)

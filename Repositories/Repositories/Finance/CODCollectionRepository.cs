@@ -23,12 +23,16 @@ namespace Repositories.Repositories.Finance
             await context.Set<COD_Collection>().AddAsync(input);    
         }
 
-        public async Task<COD_Collection> FindCODCollectionByWaybillAsync(string waybillNumber)
+        public async Task<COD_Collection> FindCODCollectionByIdAsync(string billNumber)
         {
             return await context.Set<COD_Collection>()
                  .Include(x => x.Order)
-                 .Where(x => x.Order.WaybillNumber == waybillNumber)
-                 .FirstOrDefaultAsync();
+                 .FirstOrDefaultAsync(x => x.BillNumber==billNumber);
+        }
+
+        public async Task<IQueryable<COD_Collection>> GetAllCODCollectionsAsync()
+        {
+            return context.Set<COD_Collection>().Include(x => x.Order);
         }
 
         public void UpdateCODCollection(COD_Collection input)

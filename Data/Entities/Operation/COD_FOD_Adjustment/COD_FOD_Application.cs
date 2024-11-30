@@ -1,4 +1,5 @@
-﻿using Data.Entities.IdentityEntities;
+﻿using Data.Entities.Enums;
+using Data.Entities.IdentityEntities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -38,6 +39,7 @@ namespace Data.Entities.Operation.COD_FOD_Adjustment
         public string AuditorId { get; set; }
         public ConfirmStatusEnum ConfirmStatus { get; set; } = ConfirmStatusEnum.UnConfirmed;
         public string? ConfirmationDescription { get; set; }
+        public StatusEnum Status { get; set; }
         public Order Order { get; set; }
         [ForeignKey("Order")]
         public string OrderNumber { get; set; }

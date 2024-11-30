@@ -12,7 +12,7 @@ namespace Repositories.Interfaces.Operation
     {
         Task AddReturnChangeAddApplicationAsync(Return_ChangeAdd_App input);
         void UpdateReturnChangeAddApplication(Return_ChangeAdd_App input);
-        Task<Return_ChangeAdd_App> FindReturnChangeAddApplicationAsync(string id);
-        Task<IEnumerable<Return_ChangeAdd_App>> GetAllReturnChangeAddApplicationsAsync();
+        Task<Return_ChangeAdd_App> FindReturnChangeAddApplicationByIdAsync(string id);
+        Task<IQueryable<Return_ChangeAdd_App>> GetAllReturnChangeAddApplicationsAsync();
     }
 }

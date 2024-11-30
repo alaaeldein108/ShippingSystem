@@ -28,11 +28,9 @@ namespace Repositories.Repositories.Operation
              context.Set<Order_Scan>().Remove(input);
         }
 
-        public async Task<IEnumerable<Order_Scan>> GetAllOrderScansAsync(string wabillNumber)
+        public async Task<IQueryable<Order_Scan>> GetAllOrderScansAsync()
         {
-            return await context.Set<Order_Scan>().Include(x=>x.Order)
-                .Where(x=>x.Order.WaybillNumber== wabillNumber)
-                .ToListAsync();
+            return  context.Set<Order_Scan>().Include(x => x.Order);
         }
     }
 }

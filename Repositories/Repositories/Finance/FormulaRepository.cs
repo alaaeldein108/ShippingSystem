@@ -28,6 +28,11 @@ namespace Repositories.Repositories.Finance
             context.Set<Formula>().Remove(input);
         }
 
+        public async Task<Formula> FindFormulaByIdAsync(int id)
+        {
+            return await context.Set<Formula>().FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<IEnumerable<Formula>> GetAllFormulasAsync(int quotationId)
         {
             return await context.Set<Formula>()

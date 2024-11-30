@@ -29,21 +29,22 @@ namespace Repositories.Repositories.Operation
             context.Set<BranchLevel>().Remove(input);
         }
 
-        public async Task<BranchLevel> FindBranchLevelAsync(string name)
+        public async Task<BranchLevel> FindBranchLevelByIdAsync(string id)
         {
             return await context.Set<BranchLevel>()
-                .Where(x => x.Name == name)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.Code == id);
+             
         }
 
-        public async Task<IEnumerable<BranchLevel>> GetAllBranchLevelsAsync()
+        public async Task<IQueryable<BranchLevel>> GetAllBranchLevelsAsync()
         {
-            return await context.Set<BranchLevel>().ToListAsync();
+            return context.Set<BranchLevel>();
         }
 
         public void UpdateBranchLevel(BranchLevel input)
         {
             context.Set<BranchLevel>().Update(input);
         }
+
     }
 }

@@ -11,6 +11,6 @@ namespace Repositories.Interfaces.CustomerService
     public interface ITicketReplyRepository
     {
         Task AddTicketReplyAsync(TicketReply input);
-        Task<IEnumerable<TicketReply>> GetAllTicketReplyiesAsync(string ticketNumber);
+        Task<IEnumerable<TicketReply>> GetAllTicketReplyiesByTicketNumberAsync(string ticketNumber);
     }
 }

@@ -55,6 +55,9 @@ namespace Data.Context
         public DbSet<TicketMainQuestion> TicketMainQuestions { get; set; }
         public DbSet<TicketSubQuestion> TicketSubQuestions { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<TicketReply> TicketReplies { get; set; }
+        public DbSet<TicketAttachements> TicketAttachements { get; set; }
+        public DbSet<TicketReplyAttachment> TicketReplyAttachments { get; set; }
 
         #endregion
 

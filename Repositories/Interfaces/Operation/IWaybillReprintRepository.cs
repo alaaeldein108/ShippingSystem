@@ -11,7 +11,7 @@ namespace Repositories.Interfaces.Operation
     public interface IWaybillReprintRepository
     {
         Task AddWaybillReprintAsync(WaybillReprint input);
-        Task<WaybillReprint> FindWaybillReprintAsync(string id);
-        Task<IEnumerable<WaybillReprint>> GetAllWaybillReprintsAsync();
+        Task<WaybillReprint> FindWaybillReprintByIdAsync(string id);
+        Task<IQueryable<WaybillReprint>> GetAllWaybillReprintsAsync();
     }
 }

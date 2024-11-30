@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Repositories.Interfaces.Addresses
+namespace Services.FinanceServices.CashFODCollectionService
 {
-    public interface IAddressRepository
+    public class CashFODCollectionService: ICashFODCollectionService
     {
     }
 }

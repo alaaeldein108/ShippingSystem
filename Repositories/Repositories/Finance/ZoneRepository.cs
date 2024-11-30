@@ -29,36 +29,14 @@ namespace Repositories.Repositories.Finance
             context.Set<Zone>().Remove(input);
         }
 
-        public async Task<IEnumerable<Zone>> GetAllZonesByBranchAsync(string input)
+        public async Task<Zone> FindZoneByIdAsync(int id)
         {
-            return await context.Set<Zone>()
-                .Include(x=>x.AffailiatedBranch)
-               .Where(x => x.AffailiatedBranch != null && x.AffailiatedBranch.Name == input)
-               .ToListAsync();
+            return await context.Set<Zone>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<Zone>> GetAllZonesByDestinationAsync(string input)
+        public async Task<IQueryable<Zone>> GetAllZonesAsync()
         {
-            return await context.Set<Zone>()
-                .Where(x=> x.OriginsOrDestinations != null && x.OriginsOrDestinations == input)
-                .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Zone>> GetAllZonesByNameAsync(string input)
-        {
-            return await context.Set<Zone>()
-               .Where(x => x.Name == input)
-               .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Zone>> GetAllZonesByQuotationTypeAsync(QuotationTypeEnum quotationType)
-        {
-            return await context.Set<Zone>().Where(x => x.QuotationType == quotationType).ToListAsync();
-        }
-
-        public async Task<IEnumerable<Zone>> GetAllZonesByTypeAsync(ZoneTypeEnum zoneType)
-        {
-            return await context.Set<Zone>().Where(x => x.ZoneType == zoneType).ToListAsync();
+            return context.Set<Zone>();
         }
 
         public void UpdateZone(Zone input)

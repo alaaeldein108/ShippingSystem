@@ -31,7 +31,7 @@ namespace Data.Entities.Operation
         public BranchLevel CustomerBR { get; set; }
         [ForeignKey("CustomerBR")]
         public string CustomerBRId { get; set; }
-        public StatusEnum IsEnable { get; set; }
+        public StatusEnum Status { get; set; }
         public DateTime? ContractStartTime { get; set; }
         public DateTime? ContractEndTime { get; set; }
         public Area Address { get; set; }

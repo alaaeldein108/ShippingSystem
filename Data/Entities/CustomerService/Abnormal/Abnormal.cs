@@ -22,11 +22,8 @@ namespace Data.Entities.CustomerService.Abnormal
         [ForeignKey("Order")]
         public string OrderNumber { get; set; }
         public string ProblemDescription { get; set; }
-        public TicketStatusEnum AbnormalStatus { get; set; } = TicketStatusEnum.Pending;
+        public AbnormalStatusEnum AbnormalStatus { get; set; } = AbnormalStatusEnum.Pending;
         public string RegisterId { get; set; }
-        public BranchLevel RegisterBr { get; set; }
-        [ForeignKey("RegisterBr")]
-        public string RegisterBrId { get; set; }
         public DateTime RegisterTime { get; set; }
         public ICollection<AbnormalImages> Abnormal_Images { get; set; } = new List<AbnormalImages>();
         public ICollection<AbnormalReply> AbnormalReplies { get; set; } = new List<AbnormalReply>();

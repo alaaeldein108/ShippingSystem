@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Data.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -14,5 +15,7 @@ namespace Data.Entities.CustomerService.Abnormal
         public AbnormalMainReason MainReason { get; set; }
         [ForeignKey("MainReason")]
         public int MainReasonId { get; set; }
+        public StatusEnum Status { get; set; }
+
     }
 }
