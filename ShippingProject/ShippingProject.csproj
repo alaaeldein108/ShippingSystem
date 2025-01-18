@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Hangfire" Version="1.8.16" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.8.16" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.32" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.32" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.32">
@@ -24,6 +26,11 @@
   <ItemGroup>
     <ProjectReference Include="..\Data\Data.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\CustomerService\Abnormal\" />
+    <Folder Include="wwwroot\CustomerService\Ticket\" />
   </ItemGroup>
 
 </Project>

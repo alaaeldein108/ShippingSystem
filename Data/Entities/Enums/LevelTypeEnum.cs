@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data.Entities.Enums
+﻿namespace Data.Entities.Enums
 {
     public enum LevelTypeEnum
     {
-        Branch,
-        Agency,
-        HQ
+        Branch = 1,
+        Agency = 2,
+        HQ = 3
     }
 }

@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Repositories.Models;
+using Services.AddressServices.SenderAddressBookService.Dto;
 
 namespace Services.AddressServices.SenderAddressBookService
 {
     public interface ISenderAddressBookService
     {
+        Task AddSenderAddressBookAsync(SenderAddressBookDto input);
+        Task UpdateSenderAddressBook(SenderAddressBookDto input);
+        Task<DataPage<SenderAddressBookDto>> GetAllSenderAddressBookAsync(SearchCriteria input);
+        Task DeleteSenderAddressBook(int addressId);
+        Task<SenderAddressBookDto> GetSenderAddressBookByIdAsync(int addressId);
     }
 }

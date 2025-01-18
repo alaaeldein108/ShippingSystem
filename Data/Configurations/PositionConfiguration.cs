@@ -1,11 +1,6 @@
 ﻿using Data.Entities.IdentityEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Configurations
 {
@@ -13,7 +8,15 @@ namespace Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Position> builder)
         {
-            
+            builder.HasOne(b => b.Creator)
+                  .WithMany()
+                  .HasForeignKey(b => b.CreatorId)
+                  .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(b => b.Updator)
+                    .WithMany()
+                    .HasForeignKey(b => b.UpdatorId)
+                    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

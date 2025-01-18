@@ -1,17 +1,16 @@
 ﻿using Data.Entities.IdentityEntities;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Entities
 {
     public class BaseEntity
     {
-        public string CreatorId { get; set; }
-        public string? ModifiedId { get; set; }
+        public AppUser Creator { get; set; }
+        [ForeignKey("Creator")]
+        public Guid CreatorId { get; set; }
+        public AppUser Updator { get; set; }
+        [ForeignKey("Updator")]
+        public Guid? UpdatorId { get; set; }
         public DateTime CreatedTime { get; set; } = DateTime.Now;
         public DateTime? ModificationTime { get; set; }
     }

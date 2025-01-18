@@ -2,11 +2,8 @@
 using Data.Entities.Operation;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
+using System.Linq.Expressions;
 
 namespace Repositories.Repositories.Operation
 {
@@ -28,14 +25,26 @@ namespace Repositories.Repositories.Operation
             return await context.Set<Scan>().FindAsync(code);
         }
 
-        public async Task<IEnumerable<Scan>> GetAllScansAsync()
+        public async Task<DataPage<Scan>> GetAllScansAsync(SearchCriteria input)
         {
-            return await context.Set<Scan>().ToListAsync();
+            Expression<Func<Scan, bool>> condition = null;
+            condition = a => (input.ScanTypeName.HasValue || a.ScanTypeName == input.ScanTypeName) &&
+                            (!input.Status.HasValue || a.Status == input.Status);
+
+            var totalCount = await context.Set<Scan>().Where(condition).CountAsync();
+
+            var data = await context.Set<Scan>()
+                            .Where(condition)
+                            .Skip((input.PageIndex - 1) * input.PageSize)
+                            .Take(input.PageSize)
+                            .ToListAsync();
+
+            return new DataPage<Scan>(input.PageIndex, input.PageSize, totalCount, data.AsQueryable());
         }
 
         public void UpdateScan(Scan input)
         {
-             context.Set<Scan>().Update(input);
+            context.Set<Scan>().Update(input);
         }
     }
 }

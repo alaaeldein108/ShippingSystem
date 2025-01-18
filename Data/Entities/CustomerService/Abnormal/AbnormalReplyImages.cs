@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Entities.CustomerService.Abnormal
 {
@@ -11,7 +7,8 @@ namespace Data.Entities.CustomerService.Abnormal
     {
         public AbnormalReply Reply { get; set; }
         [ForeignKey("Reply")]
-        public string ReplyNumber { get; set; }
+        public Guid ReplyId { get; set; }
+        [MaxLength(200)]
         public string PictureUrl { get; set; }
     }
 }

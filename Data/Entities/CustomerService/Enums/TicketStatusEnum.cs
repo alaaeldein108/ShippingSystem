@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data.Entities.CustomerService.Enums
+﻿namespace Data.Entities.CustomerService.Enums
 {
     public enum TicketStatusEnum
     {
-        Pending,
-        Closed
+        ToBeAssigned = 1,
+        Processing = 2,
+        Closed = 3
     }
 }

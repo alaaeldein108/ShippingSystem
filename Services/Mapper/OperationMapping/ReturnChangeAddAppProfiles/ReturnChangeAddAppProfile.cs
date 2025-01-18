@@ -13,7 +13,7 @@ namespace Services.Mapper.OperationMapping.ReturnChangeAddAppProfiles
     {
         public ReturnChangeAddAppProfile()
         {
-            CreateMap<Return_ChangeAdd_App,ReturnChangeAddAppDto>().ReverseMap();
+            CreateMap<ReturnChangeAddApp,ReturnChangeAddAppDto>().ReverseMap();
         }
     }
 }

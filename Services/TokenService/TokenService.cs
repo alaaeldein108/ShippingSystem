@@ -2,13 +2,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.TokenService
 {
@@ -31,7 +27,7 @@ namespace Services.TokenService
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email,appUser.Email),
-                new Claim("Id",appUser.Id),
+                //new Claim(ClaimTypes.NameIdentifier,appUser.Id),
                 new Claim(ClaimTypes.GivenName,appUser.UserName),
             };
             claims.AddRange(roleClaims);

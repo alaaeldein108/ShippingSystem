@@ -1,9 +1,5 @@
 ﻿using Data.Entities.CustomerService.Ticket;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.CustomerService
 {
@@ -13,6 +9,6 @@ namespace Repositories.Interfaces.CustomerService
         void UpdateTicketSubQuestion(TicketSubQuestion input);
         void DeleteTicketSubQuestion(TicketSubQuestion input);
         Task<TicketSubQuestion> FindTicketSubQuestionAsync(int id);
-        Task<IEnumerable<TicketSubQuestion>> GetAllTicketSubQuestionsAsync();
+        Task<DataPage<TicketSubQuestion>> GetAllTicketSubQuestionsAsync(SearchCriteria input);
     }
 }

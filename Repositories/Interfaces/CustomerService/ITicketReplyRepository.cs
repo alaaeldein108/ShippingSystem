@@ -1,16 +1,10 @@
-﻿using Data.Entities.CustomerService.Abnormal;
-using Data.Entities.CustomerService.Ticket;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Entities.CustomerService.Ticket;
 
 namespace Repositories.Interfaces.CustomerService
 {
     public interface ITicketReplyRepository
     {
         Task AddTicketReplyAsync(TicketReply input);
-        Task<IEnumerable<TicketReply>> GetAllTicketReplyiesByTicketNumberAsync(string ticketNumber);
+        Task<IEnumerable<TicketReply>> GetAllTicketReplyiesByTicketNumberAsync(Guid ticketNumber);
     }
 }

@@ -1,10 +1,5 @@
-﻿using Data.Entities.Finance;
-using Data.Entities.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Entities.Operation;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.Operation
 {
@@ -13,7 +8,7 @@ namespace Repositories.Interfaces.Operation
         Task AddBranchLevelAsync(BranchLevel input);
         void UpdateBranchLevel(BranchLevel input);
         void DeleteBranchLevel(BranchLevel input);
-        Task<BranchLevel> FindBranchLevelByIdAsync(string id);
-        Task<IQueryable<BranchLevel>> GetAllBranchLevelsAsync();
+        Task<BranchLevel> FindBranchLevelByIdAsync(int id);
+        Task<DataPage<BranchLevel>> GetAllBranchLevelsAsync(SearchCriteria input);
     }
 }

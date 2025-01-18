@@ -1,13 +1,9 @@
 ﻿using Data.Context;
 using Data.Entities.Addresses;
-using Data.Entities.Operation;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Addresses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
+using System.Linq.Expressions;
 
 namespace Repositories.Repositories.Addresses
 {
@@ -34,9 +30,25 @@ namespace Repositories.Repositories.Addresses
             return await context.Set<SenderAddressBook>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IQueryable<SenderAddressBook>> GetSenderAddressesAsync()
+        public async Task<DataPage<SenderAddressBook>> GetSenderAddressesAsync(SearchCriteria input)
         {
-            return  context.Set<SenderAddressBook>();
+            Expression<Func<SenderAddressBook, bool>> condition = null;
+            condition = a => (a.Name.Contains(input.SenderName) || string.IsNullOrEmpty(input.SenderName)) &&
+                            (a.Phone.Contains(input.PhoneNumber) || string.IsNullOrEmpty(input.PhoneNumber)) &&
+                            (a.SecondPhone.Contains(input.SecondPhoneNumber) || string.IsNullOrEmpty(input.SecondPhoneNumber)) &&
+                            (a.AreaId.Contains(input.AreaId) || string.IsNullOrEmpty(input.AreaId));
+
+            var totalCount = await context.Set<SenderAddressBook>().Where(condition).CountAsync();
+
+            var data = await context.Set<SenderAddressBook>()
+                            .Include(x => x.Area).ThenInclude(x => x.City)
+                            .ThenInclude(x => x.Province).Where(condition)
+                            .Skip((input.PageIndex - 1) * input.PageSize)
+                            .Take(input.PageSize)
+                            .ToListAsync();
+
+            return new DataPage<SenderAddressBook>(input.PageIndex, input.PageSize, totalCount, data.AsQueryable());
+
         }
 
         public void UpdateSenderAddress(SenderAddressBook input)

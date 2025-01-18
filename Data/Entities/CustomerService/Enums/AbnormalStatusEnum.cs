@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data.Entities.CustomerService.Enums
+﻿namespace Data.Entities.CustomerService.Enums
 {
     public enum AbnormalStatusEnum
     {
-        Pending,
-        Closed
+        Pending = 1,
+        Closed = 2
     }
 }

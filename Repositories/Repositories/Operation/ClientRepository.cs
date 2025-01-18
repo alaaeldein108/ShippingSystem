@@ -1,14 +1,9 @@
 ﻿using Data.Context;
-using Data.Entities.Enums;
-using Data.Entities.Finance;
 using Data.Entities.Operation;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
+using System.Linq.Expressions;
 
 namespace Repositories.Repositories.Operation
 {
@@ -31,9 +26,29 @@ namespace Repositories.Repositories.Operation
                 .FirstOrDefaultAsync(x => x.ClientCode == id);
         }
 
-        public async Task<IEnumerable<Client>> GetAllClientsAsync()
+        public async Task<DataPage<Client>> GetAllClientsAsync(SearchCriteria input)
         {
-            return context.Set<Client>();
+            Expression<Func<Client, bool>> condition = null;
+            condition = a => (a.PhoneNumber.Contains(input.ContactPhone) || string.IsNullOrEmpty(input.ContactPhone)) &&
+                            (a.CreatedTime >= input.CreatedTimeFrom && a.CreatedTime <= input.CreatedTimeTo) &&
+                             (!input.CustomerType.HasValue || a.CustomerType == input.CustomerType) &&
+                            (!input.AffiliatedBranchId.HasValue || a.CustomerBRId == input.AffiliatedBranchId) &&
+                            (!input.LevelBranchType.HasValue || a.CustomerBR.LevelType == input.LevelBranchType) &&
+                            (!input.Status.HasValue || a.Status == input.Status) &&
+                            (a.Creator.Code.Contains(input.UserId) || string.IsNullOrEmpty(input.UserId)) &&
+                            (!input.LevelBranchType.HasValue || a.CustomerBR.LevelType == input.LevelBranchType);
+
+            var totalCount = await context.Set<Client>().Where(condition).CountAsync();
+
+            var data = await context.Set<Client>().
+                            Include(x => x.CustomerBR)
+                            .Include(x => x.Creator)
+                            .Where(condition)
+                            .Skip((input.PageIndex - 1) * input.PageSize)
+                            .Take(input.PageSize)
+                            .ToListAsync();
+
+            return new DataPage<Client>(input.PageIndex, input.PageSize, totalCount, data.AsQueryable());
         }
 
         public void UpdateClient(Client input)

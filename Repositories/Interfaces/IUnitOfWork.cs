@@ -2,11 +2,6 @@
 using Repositories.Interfaces.CustomerService;
 using Repositories.Interfaces.Finance;
 using Repositories.Interfaces.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.Interfaces
 {
@@ -36,7 +31,7 @@ namespace Repositories.Interfaces
         #endregion
 
         #region FinanceRepository
-        public ICash_FODCollectionRepository Cash_FODCollectionRepository { get; set; }
+        public ICashFODCollectionRepository Cash_FODCollectionRepository { get; set; }
         public ICODCollectionRepository CODCollectionRepository { get; set; }
         public IFormulaRepository FormulaRepository { get; set; }
         public IQuotationRepository QuotationRepository { get; set; }
@@ -46,12 +41,12 @@ namespace Repositories.Interfaces
         #region OperationRepository
         public IBranchLevelRepository BranchLevelRepository { get; set; }
         public IClientRepository ClientRepository { get; set; }
-        public ICOD_FODApplicationRepository COD_FODApplicationRepository { get; set; }
+        public ICODFODRegistrationAppRepository COD_FODApplicationRepository { get; set; }
         public IFirstSegmentRepository FirstSegmentRepository { get; set; }
         public IOrderRepository OrderRepository { get; set; }
         public IOrderScanRepository OrderScanRepository { get; set; }
         public IProductTypeRepository ProductTypeRepository { get; set; }
-        public IReturnChangeAddApplicationRepository ReturnChangeAddApplicationRepository { get; set; }
+        public IReturnChangeAddAppRepository ReturnChangeAddApplicationRepository { get; set; }
         public IReturnChangeAddWaybillPrintRepository ReturnChangeAddWaybillPrintRepository { get; set; }
         public IScanRepository ScanRepository { get; set; }
         public ISecondSegmentRepository SecondSegmentRepository { get; set; }

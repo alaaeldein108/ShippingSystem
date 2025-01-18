@@ -13,7 +13,7 @@ namespace Services.Mapper.OperationMapping.ReturnChangeAddAppProfiles
     {
         public ReturnChangeAddWaybillPrintProfile()
         {
-            CreateMap<Return_ChangeAddWaybillPrint, ReturnChangeAddWaybillPrintDto>().ReverseMap();
+            CreateMap<ReturnChangeAddWaybillPrint, ReturnChangeAddWaybillPrintDto>().ReverseMap();
         }
     }
 }

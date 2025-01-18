@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data.Entities.Enums
+﻿namespace Data.Entities.Enums
 {
     public enum SettlmentMethodEnum
     {
-        Prepaid,
-        FOD,
-        Monthly
+        Prepaid = 1,
+        FOD = 2,
+        Monthly = 3
     }
 }

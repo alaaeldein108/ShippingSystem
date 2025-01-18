@@ -1,16 +1,10 @@
-﻿using Data.Entities.CustomerService.Abnormal;
-using Data.Entities.CustomerService.Ticket;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Entities.CustomerService.Ticket;
 
 namespace Repositories.Interfaces.CustomerService
 {
     public interface ITicketAttachmentRepository
     {
-        Task AddTicketAttachments(List<TicketAttachements> attachements);
-        Task<IEnumerable<TicketAttachements>> GetAllTicketAttachmentsByTicketNumberAsync(string ticketNumber);
+        Task AddTicketAttachments(List<TicketAttachements> attachements, Guid orderNumber, Guid userId);
+        Task<IEnumerable<TicketAttachements>> GetAllTicketAttachmentsByTicketNumberAsync(Guid ticketNumber);
     }
 }

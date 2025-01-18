@@ -1,13 +1,6 @@
 ﻿using Data.Entities.Operation;
-using Data.Entities.Operation.Return_ChangeAdd;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Configurations
 {
@@ -31,17 +24,22 @@ namespace Data.Configurations
                 .HasForeignKey(e => e.SenderAddressId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne(e => e.Return_ChangeAdd_App)
-            .WithOne(c=>c.Order)
-            .HasForeignKey<Return_ChangeAdd_App>(e => e.OrderId)
-            .OnDelete(DeleteBehavior.Restrict);
-
             builder.HasOne(o => o.ProductType)
                    .WithMany()
-                   .HasForeignKey(o => o.ProductTypeCode)
+                   .HasForeignKey(o => o.ProductTypeId)
                    .OnDelete(DeleteBehavior.Restrict);
 
-            
+            builder.HasIndex(x => x.WaybillNumber).IsUnique();
+
+            builder.HasOne(b => b.PickupCourier)
+                  .WithMany()
+                  .HasForeignKey(b => b.PickupCourierId)
+                  .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(b => b.SigningCourier)
+                    .WithMany()
+                    .HasForeignKey(b => b.SigningCourierId)
+                    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

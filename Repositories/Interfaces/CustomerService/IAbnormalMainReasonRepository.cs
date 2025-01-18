@@ -1,10 +1,5 @@
-﻿using Data.Entities.Addresses;
-using Data.Entities.CustomerService.Abnormal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Entities.CustomerService.Abnormal;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.CustomerService
 {
@@ -14,6 +9,6 @@ namespace Repositories.Interfaces.CustomerService
         void UpdateAbnormalMainReason(AbnormalMainReason input);
         void DeleteAbnormalMainReason(AbnormalMainReason input);
         Task<AbnormalMainReason> FindAbnormalMainReasonAsync(int id);
-        Task<IEnumerable<AbnormalMainReason>> GetAllAbnormalMainReasonsAsync();
+        Task<DataPage<AbnormalMainReason>> GetAllAbnormalMainReasonsAsync(SearchCriteria input);
     }
 }

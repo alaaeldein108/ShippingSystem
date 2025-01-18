@@ -1,17 +1,17 @@
-﻿using DinkToPdf.Contracts;
-using DinkToPdf;
-using System.Reflection.Emit;
-using Repositories.Interfaces.Addresses;
-using Repositories.Repositories.Addresses;
-using Repositories.Interfaces.CustomerService;
-using Repositories.Repositories.CustomerService;
-using Repositories.Interfaces.Finance;
-using Services.TokenService;
-using Repositories.Repositories.Finance;
-using Repositories.Interfaces.Operation;
-using Repositories.Repositories.Operation;
+﻿using DinkToPdf;
+using DinkToPdf.Contracts;
 using Repositories.Interfaces;
+using Repositories.Interfaces.Addresses;
+using Repositories.Interfaces.Auditor;
+using Repositories.Interfaces.CustomerService;
+using Repositories.Interfaces.Finance;
+using Repositories.Interfaces.Operation;
 using Repositories.Repositories;
+using Repositories.Repositories.Addresses;
+using Repositories.Repositories.Auditor;
+using Repositories.Repositories.CustomerService;
+using Repositories.Repositories.Finance;
+using Repositories.Repositories.Operation;
 using Services.AddressServices.ReceiverAddressBookService;
 using Services.AddressServices.SenderAddressBookService;
 using Services.CustomerServiceServices.AbnormalServices.AbnormalMainReasonService;
@@ -22,29 +22,30 @@ using Services.CustomerServiceServices.TicketServices.TicketMainQuestionService;
 using Services.CustomerServiceServices.TicketServices.TicketReplyService;
 using Services.CustomerServiceServices.TicketServices.TicketService;
 using Services.CustomerServiceServices.TicketServices.TicketSubQuestionService;
+using Services.FileService;
 using Services.FinanceServices.CashFODCollectionService;
 using Services.FinanceServices.CODCollectionService;
 using Services.FinanceServices.QuotationService;
 using Services.FinanceServices.ZoneService;
+using Services.Mapper.AddressMapping;
+using Services.Mapper.CustomerServiceMapping.AbnormalProfiles;
+using Services.Mapper.CustomerServiceMapping.TicketProfiles;
+using Services.Mapper.FinanceMapping;
+using Services.Mapper.OperationMapping;
+using Services.Mapper.OperationMapping.ReturnChangeAddAppProfiles;
+using Services.Mapper.OperationMapping.SortingProfiles;
 using Services.OperationServices.BranchLevelService;
 using Services.OperationServices.ClientService;
 using Services.OperationServices.COD_FOD_ApplicationService;
-using Services.OperationServices.SortingServices.FirstSegmentService;
 using Services.OperationServices.OrderService;
 using Services.OperationServices.ProductTypeService;
 using Services.OperationServices.Return_ChangeAddServices.ReturnChangeAddAppService;
 using Services.OperationServices.Return_ChangeAddServices.ReturnChangeAddWaybillPrintService;
 using Services.OperationServices.ScanService;
+using Services.OperationServices.SortingServices.FirstSegmentService;
 using Services.OperationServices.SortingServices.SecondSegmentService;
 using Services.OperationServices.WaybillReprintService;
-using Services.Mapper.OperationMapping;
-using Data.Entities.Addresses;
-using Services.Mapper.AddressMapping;
-using Services.Mapper.CustomerServiceMapping.AbnormalProfiles;
-using Services.Mapper.CustomerServiceMapping.TicketProfiles;
-using Services.Mapper.FinanceMapping;
-using Services.Mapper.OperationMapping.SortingProfiles;
-using Services.Mapper.OperationMapping.ReturnChangeAddAppProfiles;
+using Services.TokenService;
 
 namespace ShippingProject.Extensions
 {
@@ -54,7 +55,7 @@ namespace ShippingProject.Extensions
         {
             #region AddressServices
             services.AddScoped<IRecieverAddressBookRepository, RecieverAddressBookRepository>();
-            services.AddScoped<IReceiverAddressBookService, IReceiverAddressBookService>();
+            services.AddScoped<IReceiverAddressBookService, ReceiverAddressBookService>();
             services.AddAutoMapper(typeof(ReceiverAddressBookProfile));
 
             services.AddScoped<ISenderAddressBookRepository, SenderAddressBookRepository>();
@@ -111,7 +112,7 @@ namespace ShippingProject.Extensions
             #endregion
 
             #region FinanceServices
-            services.AddScoped<ICash_FODCollectionRepository, Cash_FODCollectionRepository>();
+            services.AddScoped<ICashFODCollectionRepository, CashFODCollectionRepository>();
             services.AddScoped<ICashFODCollectionService, CashFODCollectionService>();
             services.AddAutoMapper(typeof(CashFODCollectionProfile));
 
@@ -139,7 +140,7 @@ namespace ShippingProject.Extensions
             services.AddScoped<IClientService, ClientService>();
             services.AddAutoMapper(typeof(ClientProfile));
 
-            services.AddScoped<ICOD_FODApplicationRepository, COD_FODApplicationRepository>();
+            services.AddScoped<ICODFODRegistrationAppRepository, CODFODRegisterationAppRepository>();
             services.AddScoped<ICODFODApplicationService, CODFODApplicationService>();
             services.AddAutoMapper(typeof(CODFODApplicationProfile));
 
@@ -157,7 +158,7 @@ namespace ShippingProject.Extensions
             services.AddScoped<IProductTypeService, ProductTypeService>();
             services.AddAutoMapper(typeof(ProductTypeProfile));
 
-            services.AddScoped<IReturnChangeAddApplicationRepository, ReturnChangeAddApplicationRepository>();
+            services.AddScoped<IReturnChangeAddAppRepository, ReturnChangeAddAppRepository>();
             services.AddScoped<IReturnChangeAddAppService, ReturnChangeAddAppService>();
             services.AddAutoMapper(typeof(ReturnChangeAddAppProfile));
 
@@ -178,9 +179,13 @@ namespace ShippingProject.Extensions
             services.AddAutoMapper(typeof(WaybillReprintProfile));
             #endregion
 
+            #region AuditRepository
+            services.AddScoped<IAuditRepository, AuditRepository>();
+
+            #endregion
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-
+            services.AddScoped<IFileService, FileService>();
             services.AddScoped<ITokenService, TokenService>();
             /*
             services.AddSingleton<IUrlGenerator>(new UrlGenerator("https://Ecommerce.com"));

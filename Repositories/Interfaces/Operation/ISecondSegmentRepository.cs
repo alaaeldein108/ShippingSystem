@@ -1,12 +1,5 @@
-﻿using Data.Entities.Addresses;
-using Data.Entities.Enums;
-using Data.Entities.Operation;
-using Data.Entities.Operation.Sorting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Entities.Operation.Sorting;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.Operation
 {
@@ -15,7 +8,7 @@ namespace Repositories.Interfaces.Operation
         Task AddSecondSegmentAsync(SecondSegment input);
         void UpdateSecondSegment(SecondSegment input);
         void DeleteSecondSegment(SecondSegment input);
-        Task<SecondSegment> FindSecondSegmentByIdAsync(string id);
-        Task<IQueryable<SecondSegment>> GetAllSecondSegmentsAsync();
+        Task<SecondSegment> FindSecondSegmentByIdAsync(int id);
+        Task<DataPage<SecondSegment>> GetAllSecondSegmentsAsync(SearchCriteria input);
     }
 }

@@ -2,12 +2,8 @@
 using Data.Entities.Operation;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using Repositories.Models;
+using System.Linq.Expressions;
 
 namespace Repositories.Repositories.Operation
 {
@@ -26,18 +22,30 @@ namespace Repositories.Repositories.Operation
 
         public void DeleteProductType(ProductType input)
         {
-             context.Set<ProductType>().Remove(input);
+            context.Set<ProductType>().Remove(input);
         }
 
-        public async Task<ProductType> FindProductTypeByIdAsync(string code)
+        public async Task<ProductType> FindProductTypeByIdAsync(int id)
         {
             return await context.Set<ProductType>()
-                .FirstOrDefaultAsync(x => x.Code == code);
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<ProductType>> GetAllProductTypesAsync()
+        public async Task<DataPage<ProductType>> GetAllProductTypesAsync(SearchCriteria input)
         {
-            return await context.Set<ProductType>().ToListAsync();    
+            Expression<Func<ProductType, bool>> condition = null;
+            condition = a => (!input.ProductTypeId.HasValue || a.Id == input.ProductTypeId);
+
+
+            var totalCount = await context.Set<ProductType>().Where(condition).CountAsync();
+
+            var data = await context.Set<ProductType>()
+                            .Where(condition)
+                            .Skip((input.PageIndex - 1) * input.PageSize)
+                            .Take(input.PageSize)
+                            .ToListAsync();
+
+            return new DataPage<ProductType>(input.PageIndex, input.PageSize, totalCount, data.AsQueryable());
         }
 
         public void UpdateProductType(ProductType input)

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Entities.CustomerService.Ticket
 {
@@ -11,7 +7,8 @@ namespace Data.Entities.CustomerService.Ticket
     {
         public Ticket Ticket { get; set; }
         [ForeignKey("Ticket")]
-        public string TicketNumber { get; set; }
+        public Guid TicketNumber { get; set; }
+        [MaxLength(200)]
         public string AttachmentURL { get; set; }
     }
 }

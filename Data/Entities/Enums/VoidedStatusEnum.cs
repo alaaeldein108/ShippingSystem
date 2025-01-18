@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Data.Entities.Enums
+﻿namespace Data.Entities.Enums
 {
     public enum VoidedStatusEnum
     {
-        UnVoided,//Not Deleted
-        Voided,// Deleted
+        UnVoided = 1,//Not Deleted
+        Voided = 2,// Deleted
+        AbnormalParcelVoided = 3
 
     }
 }

@@ -13,7 +13,7 @@ namespace Services.Mapper.OperationMapping
     {
         public CODFODApplicationProfile()
         {
-            CreateMap<COD_FOD_Application, CODFODApplicationDto>().ReverseMap();
+            CreateMap<CODFODAdjustmentApp, CODFODApplicationDto>().ReverseMap();
         }
     }
 }

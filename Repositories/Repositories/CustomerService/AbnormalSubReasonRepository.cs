@@ -2,11 +2,8 @@
 using Data.Entities.CustomerService.Abnormal;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.CustomerService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
+using System.Linq.Expressions;
 
 namespace Repositories.Repositories.CustomerService
 {
@@ -30,13 +27,27 @@ namespace Repositories.Repositories.CustomerService
 
         public async Task<AbnormalSubReason> FindAbnormalSubReasonAsync(int id)
         {
-            return await context.Set<AbnormalSubReason>()
-                           .FindAsync(id);
+            return await context.Set<AbnormalSubReason>().FindAsync(id);
         }
 
-        public async Task<IEnumerable<AbnormalSubReason>> GetAllAbnormalSubReasonsAsync()
+        public async Task<DataPage<AbnormalSubReason>> GetAllAbnormalSubReasonsAsync(SearchCriteria input)
         {
-            return await context.Set<AbnormalSubReason>().ToListAsync();
+            Expression<Func<AbnormalSubReason, bool>> condition = null;
+            condition = a => (a.Code.Contains(input.AbnormalSubReasonCode) || string.IsNullOrEmpty(input.AbnormalSubReasonCode)) &&
+                            (a.Code.Contains(input.AbnormalSubReasonType) || string.IsNullOrEmpty(input.AbnormalSubReasonType)) &&
+                            (a.MainReason.Code.Contains(input.AbnormalMainReasonCode) || string.IsNullOrEmpty(input.AbnormalMainReasonCode)) &&
+                            (a.MainReason.Code.Contains(input.AbnormalMainReasonType) || string.IsNullOrEmpty(input.AbnormalMainReasonType));
+
+            var totalCount = await context.Set<AbnormalSubReason>().Where(condition).CountAsync();
+
+            var data = await context.Set<AbnormalSubReason>()
+                            .Include(x => x.MainReason)
+                            .Where(condition)
+                            .Skip((input.PageIndex - 1) * input.PageSize)
+                            .Take(input.PageSize)
+                            .ToListAsync();
+
+            return new DataPage<AbnormalSubReason>(input.PageIndex, input.PageSize, totalCount, data.AsQueryable());
         }
 
         public void UpdateAbnormalSubReason(AbnormalSubReason input)

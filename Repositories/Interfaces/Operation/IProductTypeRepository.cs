@@ -1,9 +1,5 @@
 ﻿using Data.Entities.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.Operation
 {
@@ -12,7 +8,7 @@ namespace Repositories.Interfaces.Operation
         Task AddProductTypeAsync(ProductType input);
         void UpdateProductType(ProductType input);
         void DeleteProductType(ProductType input);
-        Task<ProductType> FindProductTypeByIdAsync(string code);
-        Task<IEnumerable<ProductType>> GetAllProductTypesAsync();
+        Task<ProductType> FindProductTypeByIdAsync(int code);
+        Task<DataPage<ProductType>> GetAllProductTypesAsync(SearchCriteria input);
     }
 }

@@ -1,20 +1,13 @@
 ﻿using Data.Entities.Operation;
-using Data.Entities.Operation.COD_FOD_Adjustment;
-using Data.Entities.Operation.Sorting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.Operation
 {
     public interface IOrderRepository
     {
         Task AddOrderAsync(Order input);
-        void UpdateOrder(Order input);
-        void DeleteOrder(Order input);
-        Task<Order> FindOrderByIdAsync(string id);
-        Task<IQueryable<Order>> GetAllOrdersAsync();
+        Task UpdateOrder(Order input);
+        Task<Order> FindOrderByIdAsync(Guid id);
+        Task<DataPage<Order>> GetAllOrdersAsync(SearchCriteria input);
     }
 }

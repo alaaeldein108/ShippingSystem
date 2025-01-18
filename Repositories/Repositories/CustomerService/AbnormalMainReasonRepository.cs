@@ -2,11 +2,8 @@
 using Data.Entities.CustomerService.Abnormal;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.CustomerService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
+using System.Linq.Expressions;
 
 namespace Repositories.Repositories.CustomerService
 {
@@ -35,10 +32,21 @@ namespace Repositories.Repositories.CustomerService
 
         }
 
-        public async Task<IEnumerable<AbnormalMainReason>> GetAllAbnormalMainReasonsAsync()
+        public async Task<DataPage<AbnormalMainReason>> GetAllAbnormalMainReasonsAsync(SearchCriteria input)
         {
-            return await context.Set<AbnormalMainReason>().ToListAsync();
+            Expression<Func<AbnormalMainReason, bool>> condition = null;
+            condition = a => (a.Code.Contains(input.AbnormalMainReasonCode) || string.IsNullOrEmpty(input.AbnormalMainReasonCode)) &&
+                            (a.Code.Contains(input.AbnormalMainReasonType) || string.IsNullOrEmpty(input.AbnormalMainReasonType));
 
+            var totalCount = await context.Set<AbnormalMainReason>().Where(condition).CountAsync();
+
+            var data = await context.Set<AbnormalMainReason>()
+                            .Where(condition)
+                            .Skip((input.PageIndex - 1) * input.PageSize)
+                            .Take(input.PageSize)
+                            .ToListAsync();
+
+            return new DataPage<AbnormalMainReason>(input.PageIndex, input.PageSize, totalCount, data.AsQueryable());
         }
 
         public void UpdateAbnormalMainReason(AbnormalMainReason input)

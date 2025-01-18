@@ -1,13 +1,9 @@
 ﻿using Data.Context;
-using Data.Entities.Enums;
 using Data.Entities.Finance;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Finance;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
+using System.Linq.Expressions;
 
 namespace Repositories.Repositories.Finance
 {
@@ -34,9 +30,22 @@ namespace Repositories.Repositories.Finance
             return await context.Set<Zone>().FindAsync(id);
         }
 
-        public async Task<IQueryable<Zone>> GetAllZonesAsync()
+        public async Task<DataPage<Zone>> GetAllZonesAsync(SearchCriteria input)
         {
-            return context.Set<Zone>();
+            Expression<Func<Zone, bool>> condition = null;
+            condition = a => (a.Name.Contains(input.ZoneName) || string.IsNullOrEmpty(input.ZoneName)) &&
+                             (!input.AffiliatedBranchId.HasValue || a.AffailiatedBranchId == input.AffiliatedBranchId) &&
+                            (!input.ZoneType.HasValue || a.ZoneType == input.ZoneType);
+
+            var totalCount = await context.Set<Zone>().Where(condition).CountAsync();
+
+            var data = await context.Set<Zone>()
+                            .Where(condition)
+                            .Skip((input.PageIndex - 1) * input.PageSize)
+                            .Take(input.PageSize)
+                            .ToListAsync();
+
+            return new DataPage<Zone>(input.PageIndex, input.PageSize, totalCount, data.AsQueryable());
         }
 
         public void UpdateZone(Zone input)

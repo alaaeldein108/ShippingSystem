@@ -1,27 +1,23 @@
 ﻿using Data.Entities.Enums;
-using Data.Entities.IdentityEntities;
 using Data.Entities.Operation;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Entities.Finance
 {
-    public class Zone:BaseEntity
+    public class Zone : BaseEntity
     {
         public int Id { get; set; }
+        [MaxLength(200)]
         public string Name { get; set; }
         public ZoneTypeEnum ZoneType { get; set; }
         public BranchLevel AffailiatedBranch { get; set; }
         [ForeignKey("AffailiatedBranch")]
-        public string AffailiatedBranchCode { get; set; }
-        public string OriginsOrDestinations { get; set; }
+        public int AffailiatedBranchId { get; set; }
         public StatusEnum Status { get; set; }
         public QuotationTypeEnum QuotationType { get; set; }
-        public  ICollection<Quotation_Zone> QuotationZones { get; set; } = new List<Quotation_Zone>();
+        public ICollection<ZoneCity> Cities { get; set; } = new List<ZoneCity>();
+        public ICollection<QuotationZone> QuotationZones { get; set; } = new List<QuotationZone>();
 
     }
 

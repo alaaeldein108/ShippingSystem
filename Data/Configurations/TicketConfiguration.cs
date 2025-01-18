@@ -1,12 +1,6 @@
 ﻿using Data.Entities.CustomerService.Ticket;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Configurations
 {
@@ -14,7 +8,15 @@ namespace Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Ticket> builder)
         {
-            
+            builder.HasOne(b => b.Register)
+                   .WithMany()
+                   .HasForeignKey(b => b.RegisterId)
+                   .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasOne(b => b.ClosedPerson)
+                    .WithMany()
+                    .HasForeignKey(b => b.ClosedPersonId)
+                    .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

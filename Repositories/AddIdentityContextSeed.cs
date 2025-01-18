@@ -1,10 +1,5 @@
 ﻿using Data.Entities.IdentityEntities;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories
 {
@@ -16,7 +11,7 @@ namespace Repositories
             {
                 var user = new AppUser()
                 {
-                    Id = "00000001",
+                    Code = "00000001",
                     UserName = "AlaaEldein",
                     Email = "alaa@gmail.com",
                     DisplayName = "Alaa Eldein",
@@ -26,7 +21,7 @@ namespace Repositories
                 {
                     Name = "Admin"
                 };
-                
+
                 var userResult = await userManager.CreateAsync(user, "Aa@12345");
 
                 var roleResult = await roleManager.CreateAsync(role);

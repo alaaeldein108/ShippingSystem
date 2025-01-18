@@ -1,9 +1,5 @@
 ﻿using Data.Entities.Addresses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.Addresses
 {
@@ -13,6 +9,6 @@ namespace Repositories.Interfaces.Addresses
         void UpdateRecieverAddress(ReceiverAddressBook input);
         void DeleteRecieverAddress(ReceiverAddressBook input);
         Task<ReceiverAddressBook> FindRecieverAddressBookByIdAsync(int id);
-        Task<IQueryable<ReceiverAddressBook>> GetRecieverAddressesAsync();
+        Task<DataPage<ReceiverAddressBook>> GetRecieverAddressesAsync(SearchCriteria input);
     }
 }

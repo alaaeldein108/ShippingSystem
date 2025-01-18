@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Repositories.Models;
+using Services.CustomerServiceServices.AbnormalServices.AbnormalService.Dto;
 
 namespace Services.CustomerServiceServices.AbnormalServices.AbnormalService
 {
     public interface IAbnormalService
     {
+        Task AddAbnormalAsync(AbnormalDto input, Guid creatorId);
+        Task UpdateAbnormal(AbnormalDto input, Guid creatorId);
+        Task<GetAbnormalDto> FindAbnormalById(Guid Number);
+        Task<DataPage<GetAbnormalDto>> GetAllAbnormalsAsync(SearchCriteria input);
     }
 }

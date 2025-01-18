@@ -1,16 +1,13 @@
 ﻿using Data.Entities.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.Interfaces.Operation
 {
     public interface IOrderScanRepository
     {
-        Task AddOrderScanAsync(Order_Scan input);
-        void DeleteOrderScan(Order_Scan input);
-        Task<IQueryable<Order_Scan>> GetAllOrderScansAsync();
+        Task AddOrderScanAsync(OrderScan input);
+        Task UpdateOrderScan(OrderScan input);
+        Task DeleteOrderScan(OrderScan input);
+        Task<OrderScan> GetOrderScanByOrderAndScanTypeAsync(Guid OrderId, ScanTypeEnum scanType);
+        Task<IQueryable<OrderScan>> GetAllOrderScansAsync();
     }
 }

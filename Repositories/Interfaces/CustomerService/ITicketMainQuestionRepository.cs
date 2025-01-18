@@ -1,10 +1,5 @@
-﻿using Data.Entities.CustomerService.Abnormal;
-using Data.Entities.CustomerService.Ticket;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Entities.CustomerService.Ticket;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.CustomerService
 {
@@ -14,6 +9,6 @@ namespace Repositories.Interfaces.CustomerService
         void UpdateTicketMainQuestion(TicketMainQuestion input);
         void DeleteTicketMainQuestion(TicketMainQuestion input);
         Task<TicketMainQuestion> FindTicketMainQuestionAsync(int id);
-        Task<IEnumerable<TicketMainQuestion>> GetAllTicketMainQuestionsAsync();
+        Task<DataPage<TicketMainQuestion>> GetAllTicketMainQuestionsAsync(SearchCriteria input);
     }
 }

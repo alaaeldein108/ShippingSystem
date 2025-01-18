@@ -9,6 +9,7 @@ using ShippingProject.Middlewares;
 using System.Text.Json.Serialization;
 using Services.Setting;
 using Data.Extensions;
+using Hangfire;
 
 namespace ShippingProject
 {
@@ -42,6 +43,7 @@ namespace ShippingProject
 
             builder.Services.AddIdentityServices(builder.Configuration);
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddSwaggerDocumentation();
             builder.Services.AddCors(options =>
@@ -51,8 +53,17 @@ namespace ShippingProject
                     policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:7010/");
                 });
             });
+            builder.Services.AddHangfire(config =>
+            {
+                config.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
+            builder.Services.AddHangfireServer();
+
             var app = builder.Build();
+
+
             await ApplySeeding.ApplySeedingAsync(app);
+            LogCleanupScheduler.ScheduleLogCleanup(app.Services);
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

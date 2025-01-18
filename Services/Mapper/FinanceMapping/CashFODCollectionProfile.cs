@@ -13,7 +13,7 @@ namespace Services.Mapper.FinanceMapping
     {
         public CashFODCollectionProfile()
         {
-            CreateMap<Cash_FODCollection,CashFODCollectionDto>().ReverseMap();
+            CreateMap<CashFODCollection,CashFODCollectionDto>().ReverseMap();
         }
     }
 }

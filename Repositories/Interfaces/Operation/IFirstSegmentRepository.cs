@@ -1,10 +1,5 @@
-﻿using Data.Entities.Operation.COD_FOD_Adjustment;
-using Data.Entities.Operation.Sorting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Data.Entities.Operation.Sorting;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.Operation
 {
@@ -14,6 +9,6 @@ namespace Repositories.Interfaces.Operation
         void UpdateFirstSegment(FirstSegment input);
         void DeleteFirstSegment(FirstSegment input);
         Task<FirstSegment> FindFirstSegmentByIdAsync(int id);
-        Task<IQueryable<FirstSegment>> GetAllFirstSegmentsAsync();
+        Task<DataPage<FirstSegment>> GetAllFirstSegmentsAsync(SearchCriteria input);
     }
 }

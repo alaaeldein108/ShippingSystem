@@ -1,12 +1,6 @@
 ﻿using Data.Entities.IdentityEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Configurations
 {
@@ -14,11 +8,15 @@ namespace Data.Configurations
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-           
+            builder.HasOne(u => u.Branch)
+                .WithMany()
+                .HasForeignKey(u => u.BranchId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasOne(au => au.Position)
-                .WithMany() 
-                .HasForeignKey(au => au.PositionCode)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .WithMany()
+                .HasForeignKey(au => au.PositionId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

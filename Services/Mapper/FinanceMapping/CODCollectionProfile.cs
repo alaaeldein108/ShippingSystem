@@ -13,7 +13,7 @@ namespace Services.Mapper.FinanceMapping
     {
         public CODCollectionProfile()
         {
-            CreateMap<COD_Collection,CODCollectionDto>().ReverseMap();
+            CreateMap<CODCollection,CODCollectionDto>().ReverseMap();
         }
     }
 }

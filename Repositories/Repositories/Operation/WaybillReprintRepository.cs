@@ -2,11 +2,8 @@
 using Data.Entities.Operation;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
+using System.Linq.Expressions;
 
 namespace Repositories.Repositories.Operation
 {
@@ -23,14 +20,31 @@ namespace Repositories.Repositories.Operation
             await context.Set<WaybillReprint>().AddAsync(input);
         }
 
-        public async Task<WaybillReprint> FindWaybillReprintByIdAsync(string id)
+        public async Task<WaybillReprint> FindWaybillReprintByIdAsync(Guid id)
         {
             return await context.Set<WaybillReprint>().FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IQueryable<WaybillReprint>> GetAllWaybillReprintsAsync()
+        public async Task<DataPage<WaybillReprint>> GetAllWaybillReprintsAsync(SearchCriteria input)
         {
-            return context.Set<WaybillReprint>().Include(x=>x.Order);
+            Expression<Func<WaybillReprint, bool>> condition = null;
+            condition = a => (input.WaybillNumber == null || !input.WaybillNumber.Any() ||
+                            input.WaybillNumber.Contains(a.Order.WaybillNumber)) &&
+                            (a.PrintingTime >= input.PrintingScanTimeFrom && a.PrintingTime <= input.PrintingScanTimeTo) &&
+                            (a.Printer.Code.Contains(input.UserId) || string.IsNullOrEmpty(input.UserId)) &&
+                            (!input.PrintStatus.HasValue || a.PrintStatus == input.PrintStatus);
+
+            var totalCount = await context.Set<WaybillReprint>().Where(condition).CountAsync();
+
+            var data = await context.Set<WaybillReprint>()
+                            .Include(x => x.Printer)
+                            .Include(x => x.Order)
+                            .Where(condition)
+                            .Skip((input.PageIndex - 1) * input.PageSize)
+                            .Take(input.PageSize)
+                            .ToListAsync();
+
+            return new DataPage<WaybillReprint>(input.PageIndex, input.PageSize, totalCount, data.AsQueryable());
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using Data.Entities.Operation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Repositories.Models;
 
 namespace Repositories.Interfaces.Operation
 {
@@ -12,6 +8,6 @@ namespace Repositories.Interfaces.Operation
         Task AddScanAsync(Scan input);
         void UpdateScan(Scan input);
         Task<Scan> FindScanByIdAsync(int code);
-        Task<IEnumerable<Scan>> GetAllScansAsync();
+        Task<DataPage<Scan>> GetAllScansAsync(SearchCriteria input);
     }
 }
